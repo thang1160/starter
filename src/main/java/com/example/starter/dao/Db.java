@@ -22,8 +22,8 @@ public class Db {
             config.setJdbcUrl("jdbc:sqlserver://127.0.0.1:1433");
             config.addDataSourceProperty("user", "SA");
             config.addDataSourceProperty("password", "Thang1997");
-            config.addDataSourceProperty("databaseName", "tms_capstone");
-            config.setPoolName("tms_capstone");
+            config.addDataSourceProperty("databaseName", "tms_db");
+            config.setPoolName("tms_db");
             config.setMinimumIdle(1);
             config.setMaximumPoolSize(20);
             config.setConnectionTestQuery("SELECT GETDATE();");

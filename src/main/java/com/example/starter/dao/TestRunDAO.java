@@ -23,7 +23,7 @@ public class TestRunDAO extends Db {
         ResultSet rs = null;
         try {
             conn = getConnection();
-            ps = conn.prepareStatement("exec [tms_capstone].dbo.[GetTestRunsByProjectId] ?;");
+            ps = conn.prepareStatement("exec [GetTestRunsByProjectId] ?;");
             ps.setInt(1, projectId);
             rs = ps.executeQuery();
             if (rs != null) {

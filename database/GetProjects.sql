@@ -1,4 +1,4 @@
-CREATE PROCEDURE GetProjects
+CREATE OR ALTER PROCEDURE GetProjects
 AS
 SELECT project_ID, project_Name, (select count(*)
     from TestRun b
