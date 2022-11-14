@@ -94,6 +94,7 @@ public class MainVerticle extends AbstractVerticle {
 
     router.get(PREFIX + PROJECT.toString()).handler(ProjectHandler::getProjects);
     router.post(PREFIX + PROJECT.toString()).handler(ProjectHandler::addProject);
+    router.get(PREFIX + PROJECT.toString() + "/:projectId").handler(ProjectHandler::getProjectById);
 
     // Create the HTTP server
     vertx.createHttpServer()
