@@ -5,6 +5,7 @@ import static com.example.starter.Path.*;
 import java.util.logging.Logger;
 import com.example.starter.handler.AuthenticationHandler;
 import com.example.starter.handler.ProjectHandler;
+import com.example.starter.handler.TestCaseHandler;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.Cookie;
 import io.vertx.core.http.HttpHeaders;
@@ -92,9 +93,13 @@ public class MainVerticle extends AbstractVerticle {
     //   }
     // });
 
+    // PROJECT
     router.get(PREFIX + PROJECT.toString()).handler(ProjectHandler::getProjects);
     router.post(PREFIX + PROJECT.toString()).handler(ProjectHandler::addProject);
     router.get(PREFIX + PROJECT.toString() + "/:projectId").handler(ProjectHandler::getProjectById);
+
+    // TEST CASE
+    router.post(PREFIX + TEST_CASE.toString()).handler(TestCaseHandler::addTestCase);
 
     // Create the HTTP server
     vertx.createHttpServer()

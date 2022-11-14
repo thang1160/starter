@@ -3,7 +3,8 @@ package com.example.starter;
 public enum Path {
     LOGIN("/login"),
     LOGOUT("/logout"),
-    PROJECT("/project");
+    PROJECT("/project"),
+    TEST_CASE("/test-case");
 
     private final String stringPath;
 

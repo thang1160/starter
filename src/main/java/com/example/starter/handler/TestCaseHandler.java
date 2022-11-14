@@ -32,7 +32,7 @@ public class TestCaseHandler {
                 TestCaseDAO.addTestCase(testCase);
                 Util.sendResponse(rc, 200, "successfully created TestCase");
             } catch (Exception e) {
-                _LOGGER.log(Level.SEVERE, "add project handler failed", e);
+                _LOGGER.log(Level.SEVERE, "add testcase handler failed", e);
                 Util.sendResponse(rc, 500, e.getMessage());
             }
         }, false, null);
