@@ -2,36 +2,36 @@ package com.example.starter.dto;
 
 public class TestCase {
     private String title;
-    private Integer sectionId;
-    private Integer templateId;
-    private Integer typeId;
-    private Integer priorityId;
     private Integer estimate;
+    private Integer sectionId;
+    private Integer milestoneId;
+    private Integer userId;
     private String preconditions;
     private String steps;
+    private Integer priorityId;
     private String expectedResult;
-    private Integer userId;
     private Integer statusId;
     private boolean deleted;
+    private Integer createOn;
+    private Integer updateOn;
     private Integer updatedBy;
     private Integer projectId;
 
-    public TestCase() {}
-
-    public TestCase(String title, Integer sectionId, Integer templateId, Integer typeId, Integer priorityId, Integer estimate, String preconditions, String steps, String expectedResult, Integer userId, Integer projectId) {
+    public TestCase(String title, Integer estimate, Integer sectionId, Integer milestoneId, Integer userId, String preconditions, String steps, Integer priorityId, String expectedResult, Integer statusId, boolean deleted, Integer createOn, Integer updateOn, Integer updatedBy, Integer projectId) {
         this.title = title;
-        this.sectionId = sectionId;
-        this.templateId = templateId;
-        this.typeId = typeId;
-        this.priorityId = priorityId;
         this.estimate = estimate;
+        this.sectionId = sectionId;
+        this.milestoneId = milestoneId;
+        this.userId = userId;
         this.preconditions = preconditions;
         this.steps = steps;
+        this.priorityId = priorityId;
         this.expectedResult = expectedResult;
-        this.userId = userId;
-        this.statusId = 1;
-        this.deleted = false;
-        this.updatedBy = userId;
+        this.statusId = statusId;
+        this.deleted = deleted;
+        this.createOn = createOn;
+        this.updateOn = updateOn;
+        this.updatedBy = updatedBy;
         this.projectId = projectId;
     }
 
@@ -43,6 +43,14 @@ public class TestCase {
         this.title = title;
     }
 
+    public Integer getEstimate() {
+        return this.estimate;
+    }
+
+    public void setEstimate(Integer estimate) {
+        this.estimate = estimate;
+    }
+
     public Integer getSectionId() {
         return this.sectionId;
     }
@@ -51,36 +59,20 @@ public class TestCase {
         this.sectionId = sectionId;
     }
 
-    public Integer getTemplateId() {
-        return this.templateId;
+    public Integer getMilestoneId() {
+        return this.milestoneId;
     }
 
-    public void setTemplateId(Integer templateId) {
-        this.templateId = templateId;
+    public void setMilestoneId(Integer milestoneId) {
+        this.milestoneId = milestoneId;
     }
 
-    public Integer getTypeId() {
-        return this.typeId;
+    public Integer getUserId() {
+        return this.userId;
     }
 
-    public void setTypeId(Integer typeId) {
-        this.typeId = typeId;
-    }
-
-    public Integer getPriorityId() {
-        return this.priorityId;
-    }
-
-    public void setPriorityId(Integer priorityId) {
-        this.priorityId = priorityId;
-    }
-
-    public Integer getEstimate() {
-        return this.estimate;
-    }
-
-    public void setEstimate(Integer estimate) {
-        this.estimate = estimate;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getPreconditions() {
@@ -99,20 +91,20 @@ public class TestCase {
         this.steps = steps;
     }
 
+    public Integer getPriorityId() {
+        return this.priorityId;
+    }
+
+    public void setPriorityId(Integer priorityId) {
+        this.priorityId = priorityId;
+    }
+
     public String getExpectedResult() {
         return this.expectedResult;
     }
 
     public void setExpectedResult(String expectedResult) {
         this.expectedResult = expectedResult;
-    }
-
-    public Integer getUserId() {
-        return this.userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 
     public Integer getStatusId() {
@@ -131,6 +123,22 @@ public class TestCase {
         this.deleted = deleted;
     }
 
+    public Integer getCreateOn() {
+        return this.createOn;
+    }
+
+    public void setCreateOn(Integer createOn) {
+        this.createOn = createOn;
+    }
+
+    public Integer getUpdateOn() {
+        return this.updateOn;
+    }
+
+    public void setUpdateOn(Integer updateOn) {
+        this.updateOn = updateOn;
+    }
+
     public Integer getUpdatedBy() {
         return this.updatedBy;
     }
@@ -146,4 +154,11 @@ public class TestCase {
     public void setProjectId(Integer projectId) {
         this.projectId = projectId;
     }
+    
+
+    public TestCase() {}
+
+
+    
+    
 }
