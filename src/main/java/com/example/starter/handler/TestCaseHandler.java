@@ -28,7 +28,7 @@ public class TestCaseHandler {
                 String expectedResult = json.getString("expected-result");
                 Integer userId = json.getInteger("user-id");
                 Integer projectId = json.getInteger("project-id");
-                TestCase testCase = new TestCase(title, sectionId, templateId, typeId, priorityId, estimate, preconditions, steps, expectedResult, userId, projectId);
+                TestCase testCase = new TestCase(title, estimate, sectionId, templateId, userId, preconditions, steps, priorityId, expectedResult, typeId, false, priorityId, estimate, userId, projectId);
                 TestCaseDAO.addTestCase(testCase);
                 Util.sendResponse(rc, 200, "successfully created TestCase");
             } catch (Exception e) {
