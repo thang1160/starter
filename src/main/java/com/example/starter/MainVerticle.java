@@ -7,6 +7,7 @@ import com.example.starter.handler.AuthenticationHandler;
 import com.example.starter.handler.MilestoneHandler;
 import com.example.starter.handler.ProjectHandler;
 import com.example.starter.handler.TestCaseHandler;
+import com.example.starter.handler.TestRunHandler;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.Cookie;
 import io.vertx.core.http.HttpHeaders;
@@ -104,6 +105,9 @@ public class MainVerticle extends AbstractVerticle {
 
     // MILESTONE
     router.post(PREFIX + MILESTONE.toString()).handler(MilestoneHandler::addMilestone);
+
+    // TEST RUN
+    router.post(PREFIX + TEST_RUN.toString()).handler(TestRunHandler::addTestRun);
 
     // Create the HTTP server
     vertx.createHttpServer()

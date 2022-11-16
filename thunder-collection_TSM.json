@@ -1,1 +1,113 @@
-{"client":"Thunder Client","collectionName":"TSM","dateExported":"2022-11-10T16:08:33.956Z","version":"1.1","folders":[],"requests":[{"_id":"103dbc5a-0576-4d97-a4c9-b5c9d96f7668","colId":"096f1448-02fb-4579-a848-1c5e8b335be7","containerId":"","name":"get projects","url":"localhost:8888/tsm/api/v1/project","method":"GET","sortNum":10000,"created":"2022-11-09T17:11:29.614Z","modified":"2022-11-09T17:11:34.596Z","headers":[],"params":[],"tests":[]},{"_id":"71fd7129-3739-4f38-ba8f-a77e90a8f0c3","colId":"096f1448-02fb-4579-a848-1c5e8b335be7","containerId":"","name":"add project","url":"localhost:8888/tsm/api/v1/project","method":"POST","sortNum":20000,"created":"2022-11-09T17:11:45.578Z","modified":"2022-11-09T17:52:19.060Z","headers":[],"params":[],"body":{"type":"json","raw":"{\n  \"name\": \"test hệ thống\",\n  \"announcement\": \"thông báo sẽ test toàn hệ thống\"\n}","form":[]},"tests":[]}]}
+{
+    "client": "Thunder Client",
+    "collectionName": "TSM",
+    "dateExported": "2022-11-16T14:38:06.129Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "103dbc5a-0576-4d97-a4c9-b5c9d96f7668",
+            "colId": "096f1448-02fb-4579-a848-1c5e8b335be7",
+            "containerId": "",
+            "name": "get projects",
+            "url": "localhost:8888/tsm/api/v1/project",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2022-11-09T17:11:29.614Z",
+            "modified": "2022-11-09T17:11:34.596Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "71fd7129-3739-4f38-ba8f-a77e90a8f0c3",
+            "colId": "096f1448-02fb-4579-a848-1c5e8b335be7",
+            "containerId": "",
+            "name": "add project",
+            "url": "localhost:8888/tsm/api/v1/project",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2022-11-09T17:11:45.578Z",
+            "modified": "2022-11-09T17:52:19.060Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"test hệ thống\",\n  \"announcement\": \"thông báo sẽ test toàn hệ thống\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "ff8b16f9-d910-4c79-8474-717f876643a8",
+            "colId": "096f1448-02fb-4579-a848-1c5e8b335be7",
+            "containerId": "",
+            "name": "get project by id",
+            "url": "localhost:8888/tsm/api/v1/project/1",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2022-11-14T16:01:15.501Z",
+            "modified": "2022-11-14T16:52:04.771Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "e03d8691-27d2-41d8-b5e7-1865382236ae",
+            "colId": "096f1448-02fb-4579-a848-1c5e8b335be7",
+            "containerId": "",
+            "name": "add test case",
+            "url": "localhost:8888/tsm/api/v1/test-case",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2022-11-14T16:57:50.750Z",
+            "modified": "2022-11-14T17:20:57.595Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\": \"my testcase 2\",\n  \"section-id\": 6,\n  \"template-id\": 1,\n  \"type-id\": 1,\n  \"priority-id\": 1,\n  \"estimate\": 10,\n  \"preconditions\": \"my preconditions 2\",\n  \"steps\": \"step2: ...vvv\",\n  \"expected-result\": \"my result 2\",\n  \"user-id\": 2,\n  \"project-id\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "bc72854b-78c1-4ca2-892b-0c3baa83280d",
+            "colId": "096f1448-02fb-4579-a848-1c5e8b335be7",
+            "containerId": "",
+            "name": "add milestone",
+            "url": "localhost:8888/tsm/api/v1/milestone",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2022-11-16T13:19:53.875Z",
+            "modified": "2022-11-16T14:36:36.492Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"my milestone\",\n  \"description\": \"example description\",\n  \"start-date\": \"31/12/2022\",\n  \"end-date\": \"31/01/2023\",\n  \"project-id\": 1,\n  \"is-complete\": true\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "8ce78a07-b02d-456d-bc8f-c27b6f28742c",
+            "colId": "096f1448-02fb-4579-a848-1c5e8b335be7",
+            "containerId": "",
+            "name": "add test run",
+            "url": "localhost:8888/tsm/api/v1/test-run",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2022-11-16T14:35:27.739Z",
+            "modified": "2022-11-16T14:37:26.632Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"name\": \"my test run\",\r\n  \"milestone-id\": 3,\r\n  \"assigned-to-id\": 1,\r\n  \"description\": \"example description\",\r\n  \"test-type\": 2,\r\n  \"user-id\": 2,\r\n  \"project-id\": 1\r\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}

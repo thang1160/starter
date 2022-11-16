@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import com.example.starter.dto.TestRun;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 
@@ -46,5 +47,26 @@ public class TestRunDAO extends Db {
             close(rs, ps, conn);
         }
         return response;
+    }
+
+    public static void addTestRun(TestRun testRun) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = getConnection();
+            ps = conn.prepareStatement("INSERT INTO TestRun(run_Name,description,created_on,milestone_id,user_id,project_id,is_completed,include_all,assigned_to_id)\n"
+                    + "VALUES (?,?,GETDATE(),?,?,?,?,?,?)");
+            ps.setString(1, testRun.getName());
+            ps.setString(2, testRun.getDescription());
+            ps.setInt(3, testRun.getMilestoneId());
+            ps.setInt(4, testRun.getUserId());
+            ps.setInt(5, testRun.getProjectId());
+            ps.setBoolean(6, testRun.isCompleted());
+            ps.setBoolean(7, testRun.isIncludeAll());
+            ps.setInt(8, testRun.getAssignedToId());
+            ps.executeUpdate();
+        } finally {
+            close(conn, ps);
+        }
     }
 }
