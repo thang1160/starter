@@ -55,6 +55,8 @@ public class TestPlanDAO extends Db{
                     + "VALUES (?, ?, ?, ?, ?)");
         } catch (Exception e) {
             _LOGGER.log(Level.SEVERE, "add testplan to database failed", e);
+        }finally{
+            close(ps, connection);
         }
     }
 }

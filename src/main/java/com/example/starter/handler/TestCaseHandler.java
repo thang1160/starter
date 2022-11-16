@@ -32,7 +32,7 @@ public class TestCaseHandler {
                 Integer updated_on = json.getInteger("updated-on");
                 Integer updated_by = json.getInteger("updated-by");
                 Integer projectId = json.getInteger("project-id");
-                TestCase testCase = new TestCase(title, estimate, sectionId, priorityId, milestoneId, steps, preconditions, userId, expectedResult, status_id, isDeleted, created_on, updated_on, updated_by, projectId);
+                TestCase testCase = new TestCase(title, estimate, sectionId, priorityId, milestoneId, steps, preconditions, userId, expectedResult, 1, false, created_on, updated_on, userId, projectId);
                 TestCaseDAO.addTestCase(testCase);
                 Util.sendResponse(rc, 200, "successfully created TestCase");
             } catch (Exception e) {

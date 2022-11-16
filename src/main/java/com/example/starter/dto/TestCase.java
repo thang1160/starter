@@ -27,11 +27,11 @@ public class TestCase {
         this.steps = steps;
         this.priorityId = priorityId;
         this.expectedResult = expectedResult;
-        this.statusId = statusId;
-        this.deleted = deleted;
+        this.statusId = 1;
+        this.deleted = false;
         this.createOn = createOn;
         this.updateOn = updateOn;
-        this.updatedBy = updatedBy;
+        this.updatedBy = userId;
         this.projectId = projectId;
     }
 
