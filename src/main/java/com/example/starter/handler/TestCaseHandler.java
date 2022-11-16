@@ -1,5 +1,6 @@
 package com.example.starter.handler;
 
+import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.example.starter.Util;
@@ -18,17 +19,16 @@ public class TestCaseHandler {
             try {
                 JsonObject json = rc.body().asJsonObject();
                 String title = json.getString("title");
-                Integer sectionId = json.getInteger("section-id");
-                Integer templateId = json.getInteger("template-id");
-                Integer typeId = json.getInteger("type-id");
-                Integer priorityId = json.getInteger("priority-id");
+                Integer userId = json.getInteger("userId");
                 Integer estimate = json.getInteger("estimate");
+                Integer sectionId = json.getInteger("section-id");
+                Integer priorityId = json.getInteger("priority-id");
+                Integer milestoneId = json.getInteger("milestone-id");
                 String preconditions = json.getString("preconditions");
                 String steps = json.getString("steps");
                 String expectedResult = json.getString("expected-result");
-                Integer userId = json.getInteger("user-id");
                 Integer projectId = json.getInteger("project-id");
-                TestCase testCase = new TestCase(title, sectionId, templateId, typeId, priorityId, estimate, preconditions, steps, expectedResult, userId, projectId);
+                TestCase testCase = new TestCase(title, estimate, sectionId, priorityId, milestoneId, preconditions, steps, milestoneId, expectedResult, projectId);
                 TestCaseDAO.addTestCase(testCase);
                 Util.sendResponse(rc, 200, "successfully created TestCase");
             } catch (Exception e) {
