@@ -31,8 +31,6 @@ public class TestCase {
         this.expectedResult = expectedResult;
         this.statusId = 1;
         this.deleted = false;
-        this.createOn = createOn;
-        this.updateOn = updateOn;
         this.updatedBy = userId;
         this.projectId = projectId;
     }

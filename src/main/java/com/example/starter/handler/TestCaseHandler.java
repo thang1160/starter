@@ -1,6 +1,5 @@
 package com.example.starter.handler;
 
-import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.example.starter.Util;

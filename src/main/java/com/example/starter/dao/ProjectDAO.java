@@ -39,7 +39,7 @@ public class ProjectDAO extends Db {
         }
         return response;
     }
-
+    // Add Project
     public static void addProject(Project project) {
         Connection conn = null;
         PreparedStatement stmt = null;

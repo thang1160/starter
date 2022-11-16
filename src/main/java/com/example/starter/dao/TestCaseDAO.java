@@ -45,7 +45,7 @@ public class TestCaseDAO extends Db {
         }
         return response;
     }
-
+        // Add Test Case
     public static void addTestCase(TestCase testCase) throws SQLException {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -63,6 +63,8 @@ public class TestCaseDAO extends Db {
             ps.setInt(8, testCase.getUpdatedBy());
             ps.setInt(9, testCase.getProjectId());
             ps.executeUpdate();
+        }catch (SQLException ex) {
+            _LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(conn, ps);
         }

@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.example.starter.dto.TestRun;
+
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 
@@ -47,4 +50,26 @@ public class TestRunDAO extends Db {
         }
         return response;
     }
-}
+    public static void addTestRun(TestRun testRun) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = getConnection();
+            ps = conn.prepareStatement("insert into testrun (run_name, description, create_on, milestone_id, user_id, project_id,)\n"
+                    + "VALUES (?, ?, GETDATE(), ?, ?, ?)");
+            ps.setString(1, testRun.getName());
+            ps.setString(2, testRun.getDescription());
+            ps.setInt(4, testRun.getMilestoneId()); 
+            ps.setInt(5, testRun.getUserId());
+            ps.setInt(6, testRun.getProjectid());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            _LOGGER.log(Level.SEVERE, "add testrun to database failed", ex);
+            throw ex;
+        } finally {
+            close(ps, conn);
+        }
+    }
+        
+    }
+
