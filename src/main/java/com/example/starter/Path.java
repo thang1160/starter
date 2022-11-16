@@ -4,7 +4,8 @@ public enum Path {
     LOGIN("/login"),
     LOGOUT("/logout"),
     PROJECT("/project"),
-    TEST_CASE("/test-case");
+    TEST_CASE("/test-case"),
+    MILESTONE("/milestone");
 
     private final String stringPath;
 

@@ -31,8 +31,6 @@ public class TestCase {
         this.expectedResult = expectedResult;
         this.statusId = 1;
         this.deleted = false;
-        this.createOn = createOn;
-        this.updateOn = updateOn;
         this.updatedBy = userId;
         this.projectId = projectId;
     }
@@ -137,8 +135,6 @@ public class TestCase {
         return this.updateOn;
     }
 
-        
-
     public Integer getUpdatedBy() {
         return this.updatedBy;
     }
@@ -154,13 +150,7 @@ public class TestCase {
     public void setProjectId(Integer projectId) {
         this.projectId = projectId;
     }
-    
 
     public TestCase() {}
 
-    
-
-
-    
-    
 }

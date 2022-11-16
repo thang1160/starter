@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import com.example.starter.dto.Milestone;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 
@@ -42,5 +43,25 @@ public class MilestoneDAO extends Db {
             close(rs, ps, conn);
         }
         return response;
+    }
+
+    public static void addMilestone(Milestone milestone) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = getConnection();
+            ps = conn.prepareStatement("INSERT INTO Milestones(milestone_Name,description,start_date,end_date,is_started,project_id,completed_on)\n"
+                    + "VALUES (?,?,?,?,?,?,?)");
+            ps.setString(1, milestone.getName());
+            ps.setString(2, milestone.getDescription());
+            ps.setObject(3, milestone.getStartDate());
+            ps.setObject(4, milestone.getEndDate());
+            ps.setBoolean(5, milestone.isStarted());
+            ps.setInt(6, milestone.getProjectId());
+            ps.setObject(7, milestone.getCompleteOn());
+            ps.executeUpdate();
+        } finally {
+            close(conn, ps);
+        }
     }
 }

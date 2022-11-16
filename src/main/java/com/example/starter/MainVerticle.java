@@ -4,6 +4,7 @@ import static com.example.starter.Path.*;
 
 import java.util.logging.Logger;
 import com.example.starter.handler.AuthenticationHandler;
+import com.example.starter.handler.MilestoneHandler;
 import com.example.starter.handler.ProjectHandler;
 import com.example.starter.handler.TestCaseHandler;
 import io.vertx.core.AbstractVerticle;
@@ -100,6 +101,9 @@ public class MainVerticle extends AbstractVerticle {
 
     // TEST CASE
     router.post(PREFIX + TEST_CASE.toString()).handler(TestCaseHandler::addTestCase);
+
+    // MILESTONE
+    router.post(PREFIX + MILESTONE.toString()).handler(MilestoneHandler::addMilestone);
 
     // Create the HTTP server
     vertx.createHttpServer()
