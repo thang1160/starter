@@ -1,5 +1,7 @@
 package com.example.starter.dto;
 
+import java.sql.Date;
+
 public class TestCase {
     private String title;
     private Integer estimate;
@@ -12,12 +14,12 @@ public class TestCase {
     private String expectedResult;
     private Integer statusId;
     private boolean deleted;
-    private Integer createOn;
-    private Integer updateOn;
+    private Date createOn;
+    private Date updateOn;
     private Integer updatedBy;
     private Integer projectId;
 
-    public TestCase(String title, Integer estimate, Integer sectionId, Integer milestoneId, Integer userId, String preconditions, String steps, Integer priorityId, String expectedResult, Integer statusId, boolean deleted, Integer createOn, Integer updateOn, Integer updatedBy, Integer projectId) {
+    public TestCase(String title, Integer estimate, Integer sectionId, Integer milestoneId, Integer userId, String preconditions, String steps, Integer priorityId, String expectedResult, Integer projectId) {
         this.title = title;
         this.estimate = estimate;
         this.sectionId = sectionId;
@@ -123,21 +125,19 @@ public class TestCase {
         this.deleted = deleted;
     }
 
-    public Integer getCreateOn() {
+    public Date getCreateOn() {
         return this.createOn;
     }
 
-    public void setCreateOn(Integer createOn) {
+    public void setCreateOn(Date createOn) {
         this.createOn = createOn;
     }
 
-    public Integer getUpdateOn() {
+    public Date getUpdateOn() {
         return this.updateOn;
     }
 
-    public void setUpdateOn(Integer updateOn) {
-        this.updateOn = updateOn;
-    }
+        
 
     public Integer getUpdatedBy() {
         return this.updatedBy;
@@ -157,6 +157,8 @@ public class TestCase {
     
 
     public TestCase() {}
+
+    
 
 
     
