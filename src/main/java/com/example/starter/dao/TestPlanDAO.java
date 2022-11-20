@@ -5,9 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.example.starter.dto.TestPlan;
-
+import com.example.starter.model.TestPlan;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 
@@ -34,7 +32,7 @@ public class TestPlanDAO extends Db{
                     JsonObject t = new JsonObject();
                     t.put("id", rs.getInt(1));
                     t.put("name", rs.getString(2));
-                    t.put("description", rs.getString(3));                   
+                    t.put("description", rs.getString(3));
                     response.add(t);
                 }
             }
@@ -48,7 +46,7 @@ public class TestPlanDAO extends Db{
     }
     public static void addTestPlan(TestPlan testplan) throws SQLException{
         Connection connection = null;
-        PreparedStatement ps = null;    
+        PreparedStatement ps = null;
         try {
             connection = getConnection();
             ps = connection.prepareStatement("insert into testplan (plan_name, description, project_id, milestone_id)\n"

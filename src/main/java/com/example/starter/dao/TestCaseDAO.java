@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.example.starter.dto.TestCase;
+import com.example.starter.model.TestCase;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 

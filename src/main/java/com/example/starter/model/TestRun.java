@@ -1,4 +1,4 @@
-package com.example.starter.dto;
+package com.example.starter.model;
 
 public class TestRun {
     private String name;

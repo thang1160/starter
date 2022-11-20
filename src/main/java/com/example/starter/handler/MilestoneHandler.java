@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.example.starter.Util;
 import com.example.starter.dao.MilestoneDAO;
-import com.example.starter.dto.Milestone;
+import com.example.starter.model.MilestoneDTO;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
 
@@ -26,7 +26,7 @@ public class MilestoneHandler {
                 LocalDate endDate = LocalDate.parse(json.getString("end-date"), formatter);
                 int projectId = json.getInteger("project-id");
                 boolean isComplete = json.getBoolean("is-complete");
-                Milestone milestone = new Milestone(name, description, startDate, endDate, projectId, isComplete);
+                MilestoneDTO milestone = new MilestoneDTO(name, description, startDate, endDate, projectId, isComplete);
                 MilestoneDAO.addMilestone(milestone);
                 Util.sendResponse(rc, 200, "successfully created Milestone");
             } catch (Exception e) {

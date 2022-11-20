@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.example.starter.dto.Milestone;
+import com.example.starter.model.MilestoneDTO;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 
@@ -45,7 +45,7 @@ public class MilestoneDAO extends Db {
         return response;
     }
 
-    public static void addMilestone(Milestone milestone) throws SQLException {
+    public static void addMilestone(MilestoneDTO milestone) throws SQLException {
         Connection conn = null;
         PreparedStatement ps = null;
         try {

@@ -1,8 +1,8 @@
-package com.example.starter.dto;
+package com.example.starter.model;
 
 import java.time.LocalDate;
 
-public class Milestone {
+public class MilestoneDTO {
     private int id;
     private String name;
     private String description;
@@ -13,7 +13,7 @@ public class Milestone {
     private boolean started;
     private LocalDate completeOn;
 
-    public Milestone(String name, String description, LocalDate startDate, LocalDate endDate, int projectId, boolean completed) {
+    public MilestoneDTO(String name, String description, LocalDate startDate, LocalDate endDate, int projectId, boolean completed) {
         this.name = name;
         this.description = description;
         this.startDate = startDate;
@@ -28,7 +28,7 @@ public class Milestone {
         }
     }
 
-    public Milestone() {}
+    public MilestoneDTO() {}
 
     public int getId() {
         return this.id;

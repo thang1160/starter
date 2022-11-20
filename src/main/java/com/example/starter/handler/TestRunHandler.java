@@ -4,7 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.example.starter.Util;
 import com.example.starter.dao.TestRunDAO;
-import com.example.starter.dto.TestRun;
+import com.example.starter.model.TestRun;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
 

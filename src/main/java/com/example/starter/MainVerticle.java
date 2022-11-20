@@ -96,8 +96,8 @@ public class MainVerticle extends AbstractVerticle {
     // });
 
     // PROJECT
-    router.get(PREFIX + PROJECT.toString()).handler(ProjectHandler::getProjects);
-    router.post(PREFIX + PROJECT.toString()).handler(ProjectHandler::addProject);
+    router.get(PREFIX + PROJECT.toString()).handler(ProjectHandler::findAll);
+    router.post(PREFIX + PROJECT.toString()).handler(ProjectHandler::create);
     router.get(PREFIX + PROJECT.toString() + "/:projectId").handler(ProjectHandler::getProjectById);
 
     // TEST CASE

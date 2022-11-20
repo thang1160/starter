@@ -1,0 +1,56 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main",
+            "request": "launch",
+            "mainClass": "com.example.starter.Main",
+            "projectName": "starter"
+        },
+        {
+            "type": "java",
+            "name": "Launch AccountDAO",
+            "request": "launch",
+            "mainClass": "com.example.starter.dao.AccountDAO",
+            "projectName": "starter"
+        },
+        {
+            "type": "java",
+            "name": "Launch MilestoneDAO",
+            "request": "launch",
+            "mainClass": "com.example.starter.dao.MilestoneDAO",
+            "projectName": "starter"
+        },
+        {
+            "type": "java",
+            "name": "Launch TestCaseDAO",
+            "request": "launch",
+            "mainClass": "com.example.starter.dao.TestCaseDAO",
+            "projectName": "starter"
+        },
+        {
+            "type": "java",
+            "name": "Launch TestPlanDAO",
+            "request": "launch",
+            "mainClass": "com.example.starter.dao.TestPlanDAO",
+            "projectName": "starter"
+        },
+        {
+            "type": "java",
+            "name": "Launch TestRunDAO",
+            "request": "launch",
+            "mainClass": "com.example.starter.dao.TestRunDAO",
+            "projectName": "starter"
+        }
+    ]
+}

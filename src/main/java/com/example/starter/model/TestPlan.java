@@ -1,7 +1,7 @@
-package com.example.starter.dto;
+package com.example.starter.model;
 
 public class TestPlan {
-    private String plan_name;   
+    private String plan_name;
     private String description;
     private Integer project_id;
     private Integer milestone_id;
@@ -47,5 +47,5 @@ public class TestPlan {
     public void setMilestone_id(Integer milestone_id) {
         this.milestone_id = milestone_id;
     }
-    
+
 }

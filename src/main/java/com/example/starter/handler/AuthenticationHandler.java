@@ -5,8 +5,7 @@ import java.util.logging.Logger;
 
 import com.example.starter.Util;
 import com.example.starter.dao.AccountDAO;
-import com.example.starter.dto.Profile;
-
+import com.example.starter.model.Profile;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.auth.JWTOptions;
 import io.vertx.ext.auth.jwt.JWTAuth;
