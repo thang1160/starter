@@ -3,9 +3,8 @@ package com.example.starter.handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.example.starter.Util;
-import com.example.starter.dao.TestRunDAO;
-import com.example.starter.model.TestRun;
-import io.vertx.core.json.JsonObject;
+import com.example.starter.entity.TestRun;
+import com.example.starter.service.BaseService;
 import io.vertx.ext.web.RoutingContext;
 
 public class TestRunHandler {
@@ -13,22 +12,14 @@ public class TestRunHandler {
 
     private static final Logger _LOGGER = Logger.getLogger(TestRunHandler.class.getName());
 
-    public static void addTestRun(RoutingContext rc) {
+    public static void create(RoutingContext rc) {
         rc.vertx().executeBlocking(future -> {
             try {
-                JsonObject json = rc.body().asJsonObject();
-                String name = json.getString("name");
-                Integer milestoneId = json.getInteger("milestone-id");
-                Integer assignedToId = json.getInteger("assigned-to-id");
-                String description = json.getString("description");
-                Integer testType = json.getInteger("test-type");
-                Integer userId = json.getInteger("user-id");
-                Integer projectId = json.getInteger("project-id");
-                TestRun testRun = new TestRun(name, milestoneId, assignedToId, description, testType, userId, projectId);
-                TestRunDAO.addTestRun(testRun);
+                TestRun testRun = rc.body().asPojo(TestRun.class);
+                BaseService.create(testRun);
                 Util.sendResponse(rc, 200, "successfully created TestRun");
             } catch (Exception e) {
-                _LOGGER.log(Level.SEVERE, "add TestRun handler failed", e);
+                _LOGGER.log(Level.SEVERE, "create TestRun handler failed", e);
                 Util.sendResponse(rc, 500, e.getMessage());
             }
         }, false, null);

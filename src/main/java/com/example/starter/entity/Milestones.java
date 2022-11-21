@@ -2,6 +2,8 @@ package com.example.starter.entity;
 
 import java.time.LocalDate;
 import java.util.Set;
+import com.example.starter.core.Exclude;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -11,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Milestones {
@@ -33,7 +36,7 @@ public class Milestones {
     private LocalDate endDate;
 
     @Column(name = "is_started", nullable = false)
-    private Boolean isStarted;
+    private Boolean isStarted = false;
 
     @Column(name = "due_on")
     private LocalDate dueOn;
@@ -47,12 +50,17 @@ public class Milestones {
     @Column(name = "status")
     private Boolean status;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id", nullable = false, insertable = false, updatable=false)
     private Projects project;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "milestone")
     private Set<TestRun> milestoneTestRuns;
+
+    @Transient
+    private Boolean completed;
 
     public Integer getMilestoneId() {
         return milestoneId;
@@ -148,6 +156,14 @@ public class Milestones {
 
     public void setMilestoneTestRuns(final Set<TestRun> milestoneTestRuns) {
         this.milestoneTestRuns = milestoneTestRuns;
+    }
+
+    public Boolean isCompleted() {
+        return this.completed;
+    }
+
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
     }
 
     @Override

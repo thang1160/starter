@@ -1,11 +1,11 @@
 package com.example.starter.dao;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 public class Db {
     protected Db() {}
@@ -42,10 +42,6 @@ public class Db {
             } catch (Exception e) {
                 logger.log(Level.SEVERE, "", e);
             }
-    }
-
-    public static HikariDataSource getPds114() {
-        return pool;
     }
 
     protected static Connection getConnection() throws SQLException {

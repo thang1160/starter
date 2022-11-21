@@ -16,4 +16,15 @@ public class BaseService {
     public static EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
+
+    public static void create(Object entity) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(entity);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
 }

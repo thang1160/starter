@@ -19,15 +19,4 @@ public class ProjectsService extends BaseService {
         }
         return result;
     }
-
-    public static void create(Projects project) {
-        EntityManager em = getEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.persist(project);
-            em.getTransaction().commit();
-        } finally {
-            em.close();
-        }
-    }
 }

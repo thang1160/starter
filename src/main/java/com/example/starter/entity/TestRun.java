@@ -13,6 +13,20 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class TestRun {
 
+    public TestRun() {}
+
+    public TestRun(TestRun testRun, String fullname) {
+        this.runId = testRun.runId;
+        this.runName = testRun.runName;
+        this.createdOn = testRun.createdOn;
+        this.passedCount = testRun.passedCount;
+        this.retestCount = testRun.retestCount;
+        this.failedCount = testRun.failedCount;
+        this.untestedCount = testRun.untestedCount;
+        this.user = new Users();
+        this.user.setFullname(fullname);
+    }
+
     @Id
     @Column(name = "run_ID", nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +39,7 @@ public class TestRun {
     private String description;
 
     @Column(name = "created_on", nullable = false)
-    private LocalDate createdOn;
+    private LocalDate createdOn = LocalDate.now();
 
     @Column(name = "milestone_id", nullable = false)
     private Integer milestoneId;
@@ -40,13 +54,13 @@ public class TestRun {
     private Integer planId;
 
     @Column(name = "is_completed", nullable = false)
-    private Boolean isCompleted;
+    private Boolean isCompleted = false;
 
     @Column(name = "completed_on")
     private Integer completedOn;
 
     @Column(name = "include_all", nullable = false)
-    private Boolean includeAll;
+    private Boolean includeAll = false;
 
     @Column(name = "passed_count")
     private Integer passedCount;
@@ -78,6 +92,10 @@ public class TestRun {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "assigned_to_id", insertable = false, updatable = false)
     private Users assignedTo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "plan_id", insertable = false, updatable = false)
+    private TestPlan plan;
 
     public Integer getRunId() {
         return runId;
@@ -207,4 +225,48 @@ public class TestRun {
         this.assignedTo = assignedTo;
     }
 
+    public Integer getMilestoneId() {
+        return this.milestoneId;
+    }
+
+    public void setMilestoneId(Integer milestoneId) {
+        this.milestoneId = milestoneId;
+    }
+
+    public Integer getUserId() {
+        return this.userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getProjectId() {
+        return this.projectId;
+    }
+
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
+    }
+
+    public Integer getPlanId() {
+        return this.planId;
+    }
+
+    public void setPlanId(Integer planId) {
+        this.planId = planId;
+    }
+
+    public TestPlan getTestPlan() {
+        return plan;
+    }
+
+    public void setTestPlan(final TestPlan testPlan) {
+        this.plan = testPlan;
+    }
+
+    @Override
+    public String toString() {
+        return "TestRun [runId=" + runId + ", runName=" + runName + ", description=" + description + ", createdOn=" + createdOn + ", milestoneId=" + milestoneId + ", userId=" + userId + ", projectId=" + projectId + ", planId=" + planId + ", isCompleted=" + isCompleted + ", completedOn=" + completedOn + ", includeAll=" + includeAll + ", passedCount=" + passedCount + ", retestCount=" + retestCount + ", failedCount=" + failedCount + ", untestedCount=" + untestedCount + ", assignedToId=" + assignedToId + "]";
+    }
 }

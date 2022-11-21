@@ -1,33 +1,29 @@
 package com.example.starter.handler;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.example.starter.Util;
-import com.example.starter.dao.MilestoneDAO;
-import com.example.starter.model.MilestoneDTO;
-import io.vertx.core.json.JsonObject;
+import com.example.starter.entity.Milestones;
+import com.example.starter.service.BaseService;
 import io.vertx.ext.web.RoutingContext;
 
 public class MilestoneHandler {
     private MilestoneHandler() {}
 
     private static final Logger _LOGGER = Logger.getLogger(MilestoneHandler.class.getName());
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public static void addMilestone(RoutingContext rc) {
+    public static void create(RoutingContext rc) {
         rc.vertx().executeBlocking(future -> {
             try {
-                JsonObject json = rc.body().asJsonObject();
-                String name = json.getString("name");
-                String description = json.getString("description");
-                LocalDate startDate = LocalDate.parse(json.getString("start-date"), formatter);
-                LocalDate endDate = LocalDate.parse(json.getString("end-date"), formatter);
-                int projectId = json.getInteger("project-id");
-                boolean isComplete = json.getBoolean("is-complete");
-                MilestoneDTO milestone = new MilestoneDTO(name, description, startDate, endDate, projectId, isComplete);
-                MilestoneDAO.addMilestone(milestone);
+                Milestones milestones = rc.body().asPojo(Milestones.class);
+                if (Optional.ofNullable(milestones.isCompleted()).orElse(false)) {
+                    milestones.setCompletedOn(LocalDate.now());
+                } else {
+                    milestones.setCompletedOn(milestones.getEndDate());
+                }
+                BaseService.create(milestones);
                 Util.sendResponse(rc, 200, "successfully created Milestone");
             } catch (Exception e) {
                 _LOGGER.log(Level.SEVERE, "add Milestone handler failed", e);

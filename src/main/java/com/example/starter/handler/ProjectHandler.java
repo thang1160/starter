@@ -1,17 +1,20 @@
 package com.example.starter.handler;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.example.starter.Util;
-import com.example.starter.dao.MilestoneDAO;
-import com.example.starter.dao.TestCaseDAO;
-import com.example.starter.dao.TestRunDAO;
+import com.example.starter.entity.Milestones;
 import com.example.starter.entity.Projects;
+import com.example.starter.entity.TestCase;
+import com.example.starter.entity.TestRun;
+import com.example.starter.service.BaseService;
+import com.example.starter.service.MilestonesService;
 import com.example.starter.service.ProjectsService;
-import io.vertx.core.json.JsonArray;
-import io.vertx.core.json.JsonObject;
+import com.example.starter.service.TestCaseService;
+import com.example.starter.service.TestRunService;
 import io.vertx.ext.web.RoutingContext;
 
 public class ProjectHandler {
@@ -35,7 +38,7 @@ public class ProjectHandler {
         rc.vertx().executeBlocking(future -> {
             try {
                 Projects project = rc.body().asPojo(Projects.class);
-                ProjectsService.create(project);
+                BaseService.create(project);
                 Util.sendResponse(rc, 200, "successfully created project");
             } catch (Exception e) {
                 _LOGGER.log(Level.SEVERE, "add project handler failed", e);
@@ -48,15 +51,14 @@ public class ProjectHandler {
         rc.vertx().executeBlocking(future -> {
             try {
                 int projectId = Integer.parseInt(rc.pathParam("projectId"));
-                CompletableFuture<JsonArray> milestones = CompletableFuture.supplyAsync(() -> MilestoneDAO.getMilestonesByProjectId(projectId));
-                CompletableFuture<JsonArray> testruns = CompletableFuture.supplyAsync(() -> TestRunDAO.getTestRunsByProjectId(projectId));
-                CompletableFuture<JsonArray> testcases = CompletableFuture.supplyAsync(() -> TestCaseDAO.getTestCasesByProjectId(projectId));
-                CompletableFuture<Void> combinedFuture = CompletableFuture.allOf(milestones, testruns, testcases);
+                CompletableFuture<List<Milestones>> milestones = CompletableFuture.supplyAsync(() -> MilestonesService.findAllByProjectId(projectId));
+                // CompletableFuture<List<TestRun>> testruns = CompletableFuture.supplyAsync(() -> TestRunService.findAllByProjectId(projectId));
+                // CompletableFuture<List<TestCase>> testcases = CompletableFuture.supplyAsync(() -> TestCaseService.findAllByProjectId(projectId));
+                // CompletableFuture<Void> combinedFuture = CompletableFuture.allOf(milestones, testruns, testcases);
+                CompletableFuture<Void> combinedFuture = CompletableFuture.allOf(milestones);
                 combinedFuture.get();
-                JsonObject response = new JsonObject()
-                        .put("milestones", milestones.get())
-                        .put("test-runes", testruns.get())
-                        .put("test-cases", testcases.get());
+                // Map<String, Object> response = Map.of("milestones", milestones.get(),"test-runes", testruns.get(),"test-cases", testcases.get());
+                Map<String, Object> response = Map.of("milestones", milestones.get());
                 Util.sendResponse(rc, 200, response);
             } catch (Exception e) {
                 _LOGGER.log(Level.SEVERE, "add project handler failed", e);

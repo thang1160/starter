@@ -9,8 +9,7 @@ public class Main {
 
     public static void main(String... args) {
         LOGGER.info("Starting service...");
-        Consumer<Vertx> runner = vertx ->
-        vertx.deployVerticle(MainVerticle.class.getName());
+        Consumer<Vertx> runner = vertx -> vertx.deployVerticle(MainVerticle.class.getName());
         runner.accept(Vertx.vertx());
     }
 }
