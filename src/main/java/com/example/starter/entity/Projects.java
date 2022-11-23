@@ -38,8 +38,8 @@ public class Projects {
     @Column(name = "master_id")
     private Integer masterId;
 
-    @Column(name = "status")
-    private Boolean status;
+    @Column(name = "completed", nullable = false)
+    private Boolean completed = false;
 
     @OneToMany(mappedBy = "project")
     private Set<Milestones> projectMilestoness;
@@ -89,12 +89,12 @@ public class Projects {
         this.masterId = masterId;
     }
 
-    public Boolean getStatus() {
-        return status;
+    public Boolean getCompleted() {
+        return this.completed;
     }
 
-    public void setStatus(final Boolean status) {
-        this.status = status;
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
     }
 
     public Set<Milestones> getProjectMilestoness() {
@@ -139,6 +139,6 @@ public class Projects {
 
     @Override
     public String toString() {
-        return "Projects [projectId=" + projectId + ", projectName=" + projectName + ", announcement=" + announcement + ", masterId=" + masterId + ", status=" + status + "]";
+        return "Projects [projectId=" + projectId + ", projectName=" + projectName + ", announcement=" + announcement + ", masterId=" + masterId + ", completed=" + completed + "]";
     }
 }

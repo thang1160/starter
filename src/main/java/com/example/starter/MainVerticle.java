@@ -2,27 +2,20 @@ package com.example.starter;
 
 import static com.example.starter.Path.*;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.example.starter.handler.AuthenticationHandler;
 import com.example.starter.handler.MilestoneHandler;
 import com.example.starter.handler.ProjectHandler;
 import com.example.starter.handler.TestCaseHandler;
 import com.example.starter.handler.TestRunHandler;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.http.Cookie;
-import io.vertx.core.http.HttpHeaders;
-import io.vertx.core.http.HttpMethod;
-import io.vertx.ext.auth.PubSecKeyOptions;
-import io.vertx.ext.auth.jwt.JWTAuth;
-import io.vertx.ext.auth.jwt.JWTAuthOptions;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
-import io.vertx.ext.web.handler.JWTAuthHandler;
 
 public class MainVerticle extends AbstractVerticle {
     private static Logger logger = Logger.getLogger(MainVerticle.class.getName());
     public static final String JSON = "application/json";
-    private static final String PREFIX = "/tsm/api/v1";
+    private static final String PREFIX = "/tms/api/v1";
 
     @Override
     public void start() throws Exception {
@@ -30,6 +23,10 @@ public class MainVerticle extends AbstractVerticle {
         Router router = Router.router(vertx);
         router.route().handler(BodyHandler.create());
         router.route().failureHandler(Util::failureResponse);
+        router.route().handler(routingContext -> {
+            logger.log(Level.INFO, "header: {0}\nbody: {1}", new Object[] {routingContext.request().headers(), routingContext.body().asString()});
+            routingContext.next();
+        });
 
         // JWTAuthOptions config = new JWTAuthOptions()
         // .addPubSecKey(new PubSecKeyOptions()

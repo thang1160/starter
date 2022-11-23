@@ -2,7 +2,6 @@ package com.example.starter.entity;
 
 import java.time.LocalDate;
 import java.util.Set;
-import com.example.starter.core.Exclude;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
