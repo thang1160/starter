@@ -1,6 +1,7 @@
 package com.example.starter.entity;
 
 import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -14,6 +15,13 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class Sections {
+
+    public Sections(Integer sectionId, String sectionName) {
+        this.sectionId = sectionId;
+        this.sectionName = sectionName;
+    }
+
+    public Sections() {}
 
     @Id
     @Column(name = "section_ID", nullable = false, updatable = false)
@@ -32,14 +40,17 @@ public class Sections {
     @Column(name = "plan_id", nullable = false)
     private Integer planId;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id", nullable = false, insertable = false, updatable = false)
     private Projects project;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "plan_id", nullable = false, insertable = false, updatable = false)
     private TestPlan plan;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "section")
     private Set<TestCase> sectionTestCases;
 
@@ -91,12 +102,12 @@ public class Sections {
         this.project = project;
     }
 
-    public TestPlan getTestPlan() {
+    public TestPlan getPlan() {
         return plan;
     }
 
-    public void setTestPlan(final TestPlan testPlan) {
-        this.plan = testPlan;
+    public void setPlan(TestPlan plan) {
+        this.plan = plan;
     }
 
     public Set<TestCase> getSectionTestCases() {

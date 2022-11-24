@@ -6,7 +6,9 @@ public enum Path {
     PROJECT("/project"),
     TEST_CASE("/test-case"),
     MILESTONE("/milestone"),
-    TEST_RUN("/test-run");
+    TEST_RUN("/test-run"),
+    SECTION("/section"),
+    PRIORITY("/priority");
 
     private final String stringPath;
 

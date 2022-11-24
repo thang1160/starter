@@ -5,7 +5,9 @@ import static com.example.starter.Path.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.example.starter.handler.MilestoneHandler;
+import com.example.starter.handler.PriorityHandler;
 import com.example.starter.handler.ProjectHandler;
+import com.example.starter.handler.SectionHandler;
 import com.example.starter.handler.TestCaseHandler;
 import com.example.starter.handler.TestRunHandler;
 import io.vertx.core.AbstractVerticle;
@@ -106,6 +108,12 @@ public class MainVerticle extends AbstractVerticle {
 
         // TEST RUN
         router.post(PREFIX + TEST_RUN.toString()).handler(TestRunHandler::create);
+
+        // SECTION
+        router.get(PREFIX + SECTION.toString() + "/:projectId").handler(SectionHandler::findAllByProjectId);
+
+        // PRIORITY
+        router.get(PREFIX + PRIORITY.toString()).handler(PriorityHandler::findAll);
 
         // Create the HTTP server
         vertx.createHttpServer()

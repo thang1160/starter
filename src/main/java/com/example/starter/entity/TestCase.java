@@ -48,7 +48,7 @@ public class TestCase {
     @Column(name = "estimate")
     private Integer estimate;
 
-    @Column(name = "section_id")
+    @Column(name = "section_id", nullable = false)
     private Integer sectionId;
 
     @Column(name = "priority_id", nullable = false)
