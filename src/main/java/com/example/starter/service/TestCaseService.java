@@ -8,11 +8,15 @@ import jakarta.persistence.TypedQuery;
 
 public class TestCaseService extends BaseService {
 
+    public static void main(String[] args) {
+        TestCaseService.findAllByProjectId(1);
+    }
+
     public static List<TestCase> findAllByProjectId(int projectId) {
         List<TestCase> result = new ArrayList<>();
         EntityManager em = getEntityManager();
         try {
-            TypedQuery<TestCase> query = em.createQuery("select new com.example.starter.entity.TestCase(t, u.fullname) from TestCase t join t.user u where t.projectId = ?1", TestCase.class);
+            TypedQuery<TestCase> query = em.createQuery("select new com.example.starter.entity.TestCase(t, u, s) from TestCase t join t.user u join t.section s where t.projectId = ?1", TestCase.class);
             query.setParameter(1, projectId);
             result = query.getResultList();
         } finally {

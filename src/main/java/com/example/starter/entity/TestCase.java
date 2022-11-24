@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Transient;
 
 
 @Entity
@@ -35,6 +36,27 @@ public class TestCase {
         this.projectId = testCase.projectId;
         this.user = new Users();
         this.user.setFullname(fullname);
+    }
+
+    public TestCase(TestCase testCase, Users user, Sections section) {
+        this.caseId = testCase.caseId;
+        this.caseName = testCase.caseName;
+        this.estimate = testCase.estimate;
+        this.sectionId = testCase.sectionId;
+        this.priorityId = testCase.priorityId;
+        this.milestoneId = testCase.milestoneId;
+        this.userId = testCase.userId;
+        this.preconditions = testCase.preconditions;
+        this.steps = testCase.steps;
+        this.expectedResult = testCase.expectedResult;
+        this.statusId = testCase.statusId;
+        this.isDeleted = testCase.isDeleted;
+        this.createdOn = testCase.createdOn;
+        this.updatedOn = testCase.updatedOn;
+        this.updatedBy = testCase.updatedBy;
+        this.projectId = testCase.projectId;
+        this.sectionName = section.getSectionName();
+        this.fullname = user.getFullname();
     }
 
     @Id
@@ -285,6 +307,27 @@ public class TestCase {
 
     public void setUser(final Users user) {
         this.user = user;
+    }
+
+    @Transient
+    private String sectionName;
+    @Transient
+    private String fullname;
+
+    public String getSectionName() {
+        return this.sectionName;
+    }
+
+    public void setSectionName(String sectionName) {
+        this.sectionName = sectionName;
+    }
+
+    public String getFullname() {
+        return this.fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
 }
