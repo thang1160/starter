@@ -22,7 +22,7 @@ public class Milestones {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer milestoneId;
 
-    @Column(name = "milestone_Name", length = 250)
+    @Column(name = "milestone_Name", length = 250, nullable = false)
     private String milestoneName;
 
     @Column(name = "description", columnDefinition = "text")
