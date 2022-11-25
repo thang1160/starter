@@ -41,7 +41,7 @@ public class TestRun {
     @Column(name = "created_on", nullable = false)
     private LocalDate createdOn = LocalDate.now();
 
-    @Column(name = "milestone_id", nullable = false)
+    @Column(name = "milestone_id")
     private Integer milestoneId;
 
     @Column(name = "user_id", nullable = false)
