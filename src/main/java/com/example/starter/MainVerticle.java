@@ -10,6 +10,7 @@ import com.example.starter.handler.ProjectHandler;
 import com.example.starter.handler.SectionHandler;
 import com.example.starter.handler.TestCaseHandler;
 import com.example.starter.handler.TestRunHandler;
+import com.example.starter.handler.UserHandler;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
@@ -106,6 +107,7 @@ public class MainVerticle extends AbstractVerticle {
 
         // MILESTONE
         router.post(PREFIX + MILESTONE.toString()).handler(MilestoneHandler::create);
+        router.get(PREFIX + MILESTONE.toString() + "/:projectId").handler(MilestoneHandler::findAllByProjectId);
 
         // TEST RUN
         router.post(PREFIX + TEST_RUN.toString()).handler(TestRunHandler::create);
@@ -115,6 +117,9 @@ public class MainVerticle extends AbstractVerticle {
 
         // PRIORITY
         router.get(PREFIX + PRIORITY.toString()).handler(PriorityHandler::findAll);
+
+        // USER
+        router.get(PREFIX + USER.toString()).handler(UserHandler::findAll);
 
         // Create the HTTP server
         vertx.createHttpServer()

@@ -8,7 +8,8 @@ public enum Path {
     MILESTONE("/milestone"),
     TEST_RUN("/test-run"),
     SECTION("/section"),
-    PRIORITY("/priority");
+    PRIORITY("/priority"),
+    USER("/user");
 
     private final String stringPath;
 

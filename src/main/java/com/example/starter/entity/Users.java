@@ -1,6 +1,7 @@
 package com.example.starter.entity;
 
 import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -26,25 +27,31 @@ public class Users {
     @Column(name = "email", nullable = false, length = 250)
     private String email;
 
+    @JsonIgnore
     @Column(name = "password", nullable = false, length = 250)
     private String password;
 
     @Column(name = "role_id", nullable = false)
     private Integer roleId;
 
+    @JsonIgnore
     @Column(name = "salt", nullable = false, length = 250)
     private String salt;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id", nullable = false, insertable = false, updatable=false)
+    @JoinColumn(name = "role_id", nullable = false, insertable = false, updatable = false)
     private Roles role;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "master")
     private Set<Projects> masterProjectss;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private Set<TestRun> userTestRuns;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "assignedTo")
     private Set<TestRun> assignedToTestRuns;
 
