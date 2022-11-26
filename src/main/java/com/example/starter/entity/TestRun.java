@@ -57,7 +57,7 @@ public class TestRun {
     private Boolean isCompleted = false;
 
     @Column(name = "completed_on")
-    private Integer completedOn;
+    private LocalDate completedOn;
 
     @Column(name = "include_all", nullable = false)
     private Boolean includeAll = false;
@@ -137,11 +137,11 @@ public class TestRun {
         this.isCompleted = isCompleted;
     }
 
-    public Integer getCompletedOn() {
+    public LocalDate getCompletedOn() {
         return completedOn;
     }
 
-    public void setCompletedOn(final Integer completedOn) {
+    public void setCompletedOn(final LocalDate completedOn) {
         this.completedOn = completedOn;
     }
 
