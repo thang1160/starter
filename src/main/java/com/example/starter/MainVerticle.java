@@ -114,6 +114,7 @@ public class MainVerticle extends AbstractVerticle {
 
         // SECTION
         router.get(PREFIX + SECTION.toString() + "/:projectId").handler(SectionHandler::findAllByProjectId);
+        router.post(PREFIX + SECTION.toString()).handler(SectionHandler::create);
 
         // PRIORITY
         router.get(PREFIX + PRIORITY.toString()).handler(PriorityHandler::findAll);
