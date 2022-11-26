@@ -37,9 +37,6 @@ public class Milestones {
     @Column(name = "is_started", nullable = false)
     private Boolean isStarted = false;
 
-    @Column(name = "due_on")
-    private LocalDate dueOn;
-
     @Column(name = "project_id", nullable = false)
     private Integer projectId;
 
@@ -51,7 +48,7 @@ public class Milestones {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "project_id", nullable = false, insertable = false, updatable=false)
+    @JoinColumn(name = "project_id", nullable = false, insertable = false, updatable = false)
     private Projects project;
 
     @JsonIgnore
@@ -109,14 +106,6 @@ public class Milestones {
         this.isStarted = isStarted;
     }
 
-    public LocalDate getDueOn() {
-        return dueOn;
-    }
-
-    public void setDueOn(final LocalDate dueOn) {
-        this.dueOn = dueOn;
-    }
-
     public Integer getProjectId() {
         return projectId;
     }
@@ -167,6 +156,6 @@ public class Milestones {
 
     @Override
     public String toString() {
-        return "Milestones [milestoneId=" + milestoneId + ", milestoneName=" + milestoneName + ", description=" + description + ", startDate=" + startDate + ", endDate=" + endDate + ", isStarted=" + isStarted + ", dueOn=" + dueOn + ", projectId=" + projectId + ", completedOn=" + completedOn + ", status=" + status + "]";
+        return "Milestones [milestoneId=" + milestoneId + ", milestoneName=" + milestoneName + ", description=" + description + ", startDate=" + startDate + ", endDate=" + endDate + ", isStarted=" + isStarted + ", projectId=" + projectId + ", completedOn=" + completedOn + ", status=" + status + "]";
     }
 }
