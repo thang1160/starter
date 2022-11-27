@@ -37,18 +37,10 @@ public class Sections {
     @Column(name = "project_id", nullable = false)
     private Integer projectId;
 
-    @Column(name = "plan_id", nullable = false)
-    private Integer planId;
-
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id", nullable = false, insertable = false, updatable = false)
     private Projects project;
-
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "plan_id", nullable = false, insertable = false, updatable = false)
-    private TestPlan plan;
 
     @JsonIgnore
     @OneToMany(mappedBy = "section")
@@ -86,28 +78,12 @@ public class Sections {
         this.projectId = projectId;
     }
 
-    public Integer getPlanId() {
-        return planId;
-    }
-
-    public void setPlanId(final Integer planId) {
-        this.planId = planId;
-    }
-
     public Projects getProject() {
         return project;
     }
 
     public void setProject(final Projects project) {
         this.project = project;
-    }
-
-    public TestPlan getPlan() {
-        return plan;
-    }
-
-    public void setPlan(TestPlan plan) {
-        this.plan = plan;
     }
 
     public Set<TestCase> getSectionTestCases() {

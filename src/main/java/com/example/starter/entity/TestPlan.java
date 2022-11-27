@@ -43,9 +43,6 @@ public class TestPlan {
     @OneToMany(mappedBy = "plan")
     private Set<TestRun> planTestRuns;
 
-    @OneToMany(mappedBy = "plan")
-    private Set<Sections> planSectionss;
-
     public Integer getPlanId() {
         return planId;
     }
@@ -108,14 +105,6 @@ public class TestPlan {
 
     public void setPlanTestRuns(final Set<TestRun> planTestRuns) {
         this.planTestRuns = planTestRuns;
-    }
-
-    public Set<Sections> getPlanSectionss() {
-        return planSectionss;
-    }
-
-    public void setPlanSectionss(final Set<Sections> planSectionss) {
-        this.planSectionss = planSectionss;
     }
 
 }
