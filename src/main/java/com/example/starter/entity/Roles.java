@@ -1,6 +1,7 @@
 package com.example.starter.entity;
 
 import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,6 +23,7 @@ public class Roles {
     @Column(name = "is_project_admin")
     private Boolean isProjectAdmin;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "role")
     private Set<Users> roleUserss;
 

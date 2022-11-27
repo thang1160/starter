@@ -9,7 +9,8 @@ public enum Path {
     TEST_RUN("/test-run"),
     SECTION("/section"),
     PRIORITY("/priority"),
-    USER("/user");
+    USER("/user"),
+    ROLE("/role");
 
     private final String stringPath;
 

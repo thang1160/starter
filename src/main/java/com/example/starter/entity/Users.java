@@ -2,6 +2,7 @@ package com.example.starter.entity;
 
 import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -24,10 +25,10 @@ public class Users {
     @Column(name = "fullname", nullable = false, length = 250)
     private String fullname;
 
-    @Column(name = "email", nullable = false, length = 250)
+    @Column(name = "email", nullable = false, unique = true, length = 250)
     private String email;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "password", nullable = false, length = 250)
     private String password;
 
