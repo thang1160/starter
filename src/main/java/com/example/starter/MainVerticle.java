@@ -112,6 +112,7 @@ public class MainVerticle extends AbstractVerticle {
 
         // TEST RUN
         router.post(PREFIX + TEST_RUN.toString()).handler(TestRunHandler::create);
+        router.get(PREFIX + TEST_RUN.toString() + "/:projectId").handler(TestRunHandler::findAllByProjectId);
 
         // SECTION
         router.get(PREFIX + SECTION.toString() + "/:projectId").handler(SectionHandler::findAllByProjectId);

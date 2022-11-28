@@ -1,6 +1,7 @@
 package com.example.starter.entity;
 
 import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -9,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Transient;
 
 @Entity
 public class TestRun {
@@ -23,8 +25,7 @@ public class TestRun {
         this.retestCount = testRun.retestCount;
         this.failedCount = testRun.failedCount;
         this.untestedCount = testRun.untestedCount;
-        this.user = new Users();
-        this.user.setFullname(fullname);
+        this.fullname = fullname;
     }
 
     @Id
@@ -77,22 +78,27 @@ public class TestRun {
     @Column(name = "assigned_to_id")
     private Integer assignedToId;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "milestone_id", nullable = false, insertable = false, updatable = false)
     private Milestones milestone;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false)
     private Users user;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id", nullable = false, insertable = false, updatable = false)
     private Projects project;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "assigned_to_id", insertable = false, updatable = false)
     private Users assignedTo;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "plan_id", insertable = false, updatable = false)
     private TestPlan plan;
@@ -263,6 +269,17 @@ public class TestRun {
 
     public void setTestPlan(final TestPlan testPlan) {
         this.plan = testPlan;
+    }
+
+    @Transient
+    private String fullname;
+
+    public String getFullname() {
+        return this.fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     @Override
