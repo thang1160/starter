@@ -4,10 +4,12 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
@@ -34,12 +36,14 @@ public class Result {
     private String comment;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "result")
-    private Set<TestRun> resultTestRuns;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "test_run_id", nullable = false, insertable = false, updatable = false)
+    private TestRun testRun;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "result")
-    private Set<TestCase> resultTestCases;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "test_case_id", nullable = false, insertable = false, updatable = false)
+    private TestCase testCase;
 
     public Integer getResultId() {
         return this.resultId;
@@ -81,20 +85,20 @@ public class Result {
         this.comment = comment;
     }
 
-    public Set<TestRun> getResultsTestRuns() {
-        return resultTestRuns;
+    public TestRun getTestRun() {
+        return testRun;
     }
 
-    public void setResultsTestRuns(final Set<TestRun> resultsTestRuns) {
-        this.resultTestRuns = resultsTestRuns;
+    public void setTestRun(final TestRun testRun) {
+        this.testRun = testRun;
     }
 
-    public Set<TestCase> getResultTestCases() {
-        return resultTestCases;
+    public TestCase getTestCase() {
+        return testCase;
     }
 
-    public void setResultTestCases(final Set<TestCase> resultTestCases) {
-        this.resultTestCases = resultTestCases;
+    public void setTestCase(final TestCase testCase) {
+        this.testCase = testCase;
     }
 
 }

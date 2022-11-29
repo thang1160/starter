@@ -1,6 +1,7 @@
 package com.example.starter.entity;
 
 import java.time.LocalDate;
+import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 
 @Entity
@@ -103,9 +105,9 @@ public class TestRun {
     @JoinColumn(name = "plan_id", insertable = false, updatable = false)
     private TestPlan plan;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "result_id")
-    private Result result;
+    @JsonIgnore
+    @OneToMany(mappedBy = "testRun")
+    private Set<Result> testRunResults;
 
     public Integer getRunId() {
         return runId;
@@ -275,12 +277,12 @@ public class TestRun {
         this.plan = testPlan;
     }
 
-    public Result getResult() {
-        return result;
+    public Set<Result> getTestRunResults() {
+        return testRunResults;
     }
 
-    public void setResult(final Result result) {
-        this.result = result;
+    public void setTestRunResults(final Set<Result> testRunResults) {
+        this.testRunResults = testRunResults;
     }
 
     @Transient

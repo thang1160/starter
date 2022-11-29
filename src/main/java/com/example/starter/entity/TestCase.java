@@ -1,6 +1,8 @@
 package com.example.starter.entity;
 
 import java.time.LocalDate;
+import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -9,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 
 
@@ -109,33 +112,39 @@ public class TestCase {
     @Column(name = "project_id", nullable = false)
     private Integer projectId;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "milestone_id", insertable = false, updatable = false)
     private Milestones milestone;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "priority_id", nullable = false, insertable = false, updatable = false)
     private Priorities priority;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id", nullable = false, insertable = false, updatable = false)
     private Projects project;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "section_id", insertable = false, updatable = false)
     private Sections section;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "status_id", nullable = false, insertable = false, updatable = false)
     private Status status;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false)
     private Users user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "result_id")
-    private Result result;
+    @JsonIgnore
+    @OneToMany(mappedBy = "testCase")
+    private Set<Result> testCaseResults;
 
     public Integer getCaseId() {
         return caseId;
@@ -313,12 +322,12 @@ public class TestCase {
         this.user = user;
     }
 
-    public Result getResult() {
-        return result;
+    public Set<Result> getTestCaseResults() {
+        return testCaseResults;
     }
 
-    public void setResult(final Result result) {
-        this.result = result;
+    public void setTestCaseResults(final Set<Result> testCaseResults) {
+        this.testCaseResults = testCaseResults;
     }
 
     @Transient
