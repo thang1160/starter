@@ -10,7 +10,8 @@ public enum Path {
     SECTION("/section"),
     PRIORITY("/priority"),
     USER("/user"),
-    ROLE("/role");
+    ROLE("/role"),
+    RESULT("/result");
 
     private final String stringPath;
 

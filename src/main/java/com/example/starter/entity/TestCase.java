@@ -133,6 +133,10 @@ public class TestCase {
     @JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false)
     private Users user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "result_id")
+    private Result result;
+
     public Integer getCaseId() {
         return caseId;
     }
@@ -307,6 +311,14 @@ public class TestCase {
 
     public void setUser(final Users user) {
         this.user = user;
+    }
+
+    public Result getResult() {
+        return result;
+    }
+
+    public void setResult(final Result result) {
+        this.result = result;
     }
 
     @Transient

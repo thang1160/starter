@@ -103,6 +103,10 @@ public class TestRun {
     @JoinColumn(name = "plan_id", insertable = false, updatable = false)
     private TestPlan plan;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "result_id")
+    private Result result;
+
     public Integer getRunId() {
         return runId;
     }
@@ -269,6 +273,14 @@ public class TestRun {
 
     public void setTestPlan(final TestPlan testPlan) {
         this.plan = testPlan;
+    }
+
+    public Result getResult() {
+        return result;
+    }
+
+    public void setResult(final Result result) {
+        this.result = result;
     }
 
     @Transient

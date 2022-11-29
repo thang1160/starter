@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import com.example.starter.handler.MilestoneHandler;
 import com.example.starter.handler.PriorityHandler;
 import com.example.starter.handler.ProjectHandler;
+import com.example.starter.handler.ResultHandler;
 import com.example.starter.handler.RoleHandler;
 import com.example.starter.handler.SectionHandler;
 import com.example.starter.handler.TestCaseHandler;
@@ -127,6 +128,10 @@ public class MainVerticle extends AbstractVerticle {
 
         // ROLE
         router.get(PREFIX + ROLE.toString()).handler(RoleHandler::findAll);
+
+        // RESULT
+        router.post(PREFIX + RESULT.toString()).handler(ResultHandler::create);
+        router.put(PREFIX + RESULT.toString()).handler(ResultHandler::update);
 
         // Create the HTTP server
         vertx.createHttpServer()

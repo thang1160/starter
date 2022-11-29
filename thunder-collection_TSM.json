@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
-    "collectionName": "TSM",
-    "dateExported": "2022-11-26T16:40:12.736Z",
+    "collectionName": "tms",
+    "dateExported": "2022-11-29T16:47:13.476Z",
     "version": "1.1",
     "folders": [],
     "requests": [
@@ -160,12 +160,12 @@
             "method": "POST",
             "sortNum": 75000,
             "created": "2022-11-26T16:04:24.232Z",
-            "modified": "2022-11-26T16:09:59.536Z",
+            "modified": "2022-11-27T13:43:05.597Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"sectionName\": \"test API\",\n  \"projectId\": 1,\n  \"planId\": 5\n}",
+                "raw": "{\n  \"sectionName\": \"test API\",\n  \"projectId\": 1\n}",
                 "form": []
             },
             "tests": []
@@ -196,6 +196,72 @@
             "modified": "2022-11-25T16:31:56.535Z",
             "headers": [],
             "params": [],
+            "tests": []
+        },
+        {
+            "_id": "2f3b6cb2-b963-4efd-bf62-0c5a1f37de45",
+            "colId": "096f1448-02fb-4579-a848-1c5e8b335be7",
+            "containerId": "",
+            "name": "get roles",
+            "url": "localhost:8888/tms/api/v1/role",
+            "method": "GET",
+            "sortNum": 110000,
+            "created": "2022-11-27T12:28:23.068Z",
+            "modified": "2022-11-27T12:28:33.063Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "f312454e-503f-4b85-90f3-dd21e0dc9825",
+            "colId": "096f1448-02fb-4579-a848-1c5e8b335be7",
+            "containerId": "",
+            "name": "get test runs by project id",
+            "url": "localhost:8888/tms/api/v1/test-run/1",
+            "method": "GET",
+            "sortNum": 120000,
+            "created": "2022-11-28T15:50:19.234Z",
+            "modified": "2022-11-28T15:50:29.203Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "e7308b92-bd6f-431e-b016-ea118d740606",
+            "colId": "096f1448-02fb-4579-a848-1c5e8b335be7",
+            "containerId": "",
+            "name": "update result",
+            "url": "localhost:8888/tms/api/v1/result",
+            "method": "PUT",
+            "sortNum": 130000,
+            "created": "2022-11-29T16:00:20.678Z",
+            "modified": "2022-11-29T16:46:42.696Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"test\": 2,\n  \"status\": \"Passed\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "58bac85d-3395-4af8-a23a-2dee562cf2d5",
+            "colId": "096f1448-02fb-4579-a848-1c5e8b335be7",
+            "containerId": "",
+            "name": "create results",
+            "url": "localhost:8888/tms/api/v1/result",
+            "method": "POST",
+            "sortNum": 140000,
+            "created": "2022-11-29T16:46:07.516Z",
+            "modified": "2022-11-29T16:46:54.733Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "[\n  {\n    \"testRunId\": 5,\n    \"testCaseId\": 12\n  },\n  {\n    \"testRunId\": 5,\n    \"testCaseId\": 13\n  }\n]",
+                "form": []
+            },
             "tests": []
         }
     ]
