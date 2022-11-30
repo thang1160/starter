@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
 
 
@@ -18,16 +19,28 @@ import jakarta.persistence.UniqueConstraint;
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"test_run_id", "test_case_id"})})
 public class Result {
 
+    public Result() {}
+
+    public Result(Result result, String caseName, String sectionName) {
+        this.resultId = result.resultId;
+        this.runId = result.runId;
+        this.caseId = result.caseId;
+        this.status = result.status;
+        this.comment = result.comment;
+        this.caseName = caseName;
+        this.sectionName = sectionName;
+    }
+
     @Id
     @Column(name = "result_id", nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer resultId;
 
     @Column(name = "test_run_id", nullable = false)
-    private Integer testRunId;
+    private Integer runId;
 
     @Column(name = "test_case_id", nullable = false)
-    private Integer testCaseId;
+    private Integer caseId;
 
     @Column(name = "status", nullable = false, length = 50)
     private String status = "Untested";
@@ -53,20 +66,20 @@ public class Result {
         this.resultId = resultId;
     }
 
-    public Integer getTestRunId() {
-        return testRunId;
+    public Integer getRunId() {
+        return runId;
     }
 
-    public void setTestRunId(final Integer testRunId) {
-        this.testRunId = testRunId;
+    public void setRunId(final Integer runId) {
+        this.runId = runId;
     }
 
-    public Integer getTestCaseId() {
-        return testCaseId;
+    public Integer getCaseId() {
+        return caseId;
     }
 
-    public void setTestCaseId(final Integer testCaseId) {
-        this.testCaseId = testCaseId;
+    public void setCaseId(final Integer caseId) {
+        this.caseId = caseId;
     }
 
     public String getStatus() {
@@ -101,4 +114,25 @@ public class Result {
         this.testCase = testCase;
     }
 
+    @Transient
+    private String caseName;
+
+    public String getCaseName() {
+        return this.caseName;
+    }
+
+    public void setCaseName(String caseName) {
+        this.caseName = caseName;
+    }
+
+    @Transient
+    private String sectionName;
+
+    public String getSectionName() {
+        return this.sectionName;
+    }
+
+    public void setSectionName(String sectionName) {
+        this.sectionName = sectionName;
+    }
 }

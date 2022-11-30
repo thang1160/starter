@@ -101,7 +101,6 @@ public class MainVerticle extends AbstractVerticle {
         // PROJECT
         router.get(PREFIX + PROJECT.toString()).handler(ProjectHandler::findAll);
         router.post(PREFIX + PROJECT.toString()).handler(ProjectHandler::create);
-        router.get(PREFIX + PROJECT.toString() + "/:projectId").handler(ProjectHandler::getProjectById);
 
         // TEST CASE
         router.post(PREFIX + TEST_CASE.toString()).handler(TestCaseHandler::addTestCase);
@@ -132,6 +131,7 @@ public class MainVerticle extends AbstractVerticle {
         // RESULT
         router.post(PREFIX + RESULT.toString()).handler(ResultHandler::create);
         router.put(PREFIX + RESULT.toString()).handler(ResultHandler::update);
+        router.get(PREFIX + RESULT.toString() + "/:testRunId").handler(ResultHandler::findAllByTestRunId);
 
         // Create the HTTP server
         vertx.createHttpServer()

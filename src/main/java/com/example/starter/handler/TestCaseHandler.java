@@ -36,7 +36,7 @@ public class TestCaseHandler {
                 List<TestCase> response = TestCaseService.findAllByProjectId(projectId);
                 Util.sendResponse(rc, 200, response);
             } catch (Exception e) {
-                _LOGGER.log(Level.SEVERE, "get section handler failed with id {0}:{1}", new Object[] {stringId, e});
+                _LOGGER.log(Level.SEVERE, "get test case handler failed with id {0}:{1}", new Object[] {stringId, e});
                 Util.sendResponse(rc, 500, e.getMessage());
             }
         }, false, null);
