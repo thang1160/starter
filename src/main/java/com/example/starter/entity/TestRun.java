@@ -19,14 +19,15 @@ public class TestRun {
 
     public TestRun() {}
 
-    public TestRun(TestRun testRun, String fullname) {
+    public TestRun(TestRun testRun, String fullname, Long passedCount, Long blockedCount, Long retestCount, Long failedCount, Long untestedCount) {
         this.runId = testRun.runId;
         this.runName = testRun.runName;
         this.createdOn = testRun.createdOn;
-        this.passedCount = testRun.passedCount;
-        this.retestCount = testRun.retestCount;
-        this.failedCount = testRun.failedCount;
-        this.untestedCount = testRun.untestedCount;
+        this.passedCount = passedCount;
+        this.blockedCount = blockedCount;
+        this.retestCount = retestCount;
+        this.failedCount = failedCount;
+        this.untestedCount = untestedCount;
         this.fullname = fullname;
     }
 
@@ -64,18 +65,6 @@ public class TestRun {
 
     @Column(name = "include_all", nullable = false)
     private Boolean includeAll = false;
-
-    @Column(name = "passed_count")
-    private Integer passedCount;
-
-    @Column(name = "retest_count")
-    private Integer retestCount;
-
-    @Column(name = "failed_count")
-    private Integer failedCount;
-
-    @Column(name = "untested_count")
-    private Integer untestedCount;
 
     @Column(name = "assigned_to_id")
     private Integer assignedToId;
@@ -163,38 +152,6 @@ public class TestRun {
 
     public void setIncludeAll(final Boolean includeAll) {
         this.includeAll = includeAll;
-    }
-
-    public Integer getPassedCount() {
-        return passedCount;
-    }
-
-    public void setPassedCount(final Integer passedCount) {
-        this.passedCount = passedCount;
-    }
-
-    public Integer getRetestCount() {
-        return retestCount;
-    }
-
-    public void setRetestCount(final Integer retestCount) {
-        this.retestCount = retestCount;
-    }
-
-    public Integer getFailedCount() {
-        return failedCount;
-    }
-
-    public void setFailedCount(final Integer failedCount) {
-        this.failedCount = failedCount;
-    }
-
-    public Integer getUntestedCount() {
-        return untestedCount;
-    }
-
-    public void setUntestedCount(final Integer untestedCount) {
-        this.untestedCount = untestedCount;
     }
 
     public Integer getAssignedToId() {
@@ -288,12 +245,67 @@ public class TestRun {
     @Transient
     private String fullname;
 
+    @Transient
+    private Long passedCount = 0L;
+
+    @Transient
+    private Long blockedCount = 0L;
+
+    @Transient
+    private Long retestCount = 0L;
+
+    @Transient
+    private Long failedCount = 0L;
+
+    @Transient
+    private Long untestedCount = 0L;
+
     public String getFullname() {
         return this.fullname;
     }
 
     public void setFullname(String fullname) {
         this.fullname = fullname;
+    }
+
+    public Long getPassedCount() {
+        return passedCount;
+    }
+
+    public void setPassedCount(final Long passedCount) {
+        this.passedCount = passedCount;
+    }
+
+    public Long getBlockedCount() {
+        return this.blockedCount;
+    }
+
+    public void setBlockedCount(Long blockedCount) {
+        this.blockedCount = blockedCount;
+    }
+
+    public Long getRetestCount() {
+        return retestCount;
+    }
+
+    public void setRetestCount(final Long retestCount) {
+        this.retestCount = retestCount;
+    }
+
+    public Long getFailedCount() {
+        return failedCount;
+    }
+
+    public void setFailedCount(final Long failedCount) {
+        this.failedCount = failedCount;
+    }
+
+    public Long getUntestedCount() {
+        return untestedCount;
+    }
+
+    public void setUntestedCount(final Long untestedCount) {
+        this.untestedCount = untestedCount;
     }
 
     @Override

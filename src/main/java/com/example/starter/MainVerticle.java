@@ -129,7 +129,6 @@ public class MainVerticle extends AbstractVerticle {
         router.get(PREFIX + ROLE.toString()).handler(RoleHandler::findAll);
 
         // RESULT
-        router.post(PREFIX + RESULT.toString()).handler(ResultHandler::create);
         router.put(PREFIX + RESULT.toString()).handler(ResultHandler::update);
         router.get(PREFIX + RESULT.toString() + "/:testRunId").handler(ResultHandler::findAllByTestRunId);
 
