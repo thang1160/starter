@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import com.example.starter.Util;
 import com.example.starter.entity.TestCase;
 import com.example.starter.entity.TestRun;
-import com.example.starter.service.BaseService;
 import com.example.starter.service.TestCaseService;
 import com.example.starter.service.TestRunService;
 import io.vertx.ext.web.RoutingContext;
@@ -23,7 +22,6 @@ public class TestRunHandler {
             try {
                 TestRun testRun = rc.body().asPojo(TestRun.class);
                 List<TestCase> testCases = new ArrayList<>();
-                BaseService.create(testRun);
                 if (Optional.ofNullable(testRun.getIncludeAll()).orElse(false)) {
                     testCases = TestCaseService.findAllByProjectId(testRun.getProjectId());
                 }

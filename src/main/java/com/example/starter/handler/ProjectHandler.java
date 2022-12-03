@@ -40,4 +40,18 @@ public class ProjectHandler {
             }
         }, false, null);
     }
+
+    public static void findByProjectId(RoutingContext rc) {
+        rc.vertx().executeBlocking(future -> {
+            String stringId = rc.pathParam("projectId");
+            try {
+                Long projectId = Long.parseLong(stringId);
+                Projects project = ProjectsService.findById(projectId);
+                Util.sendResponse(rc, 200, project);
+            } catch (Exception e) {
+                _LOGGER.log(Level.SEVERE, "add project handler failed", e);
+                Util.sendResponse(rc, 500, e.getMessage());
+            }
+        }, false, null);
+    }
 }

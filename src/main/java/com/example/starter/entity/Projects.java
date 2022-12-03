@@ -1,6 +1,7 @@
 package com.example.starter.entity;
 
 import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -41,13 +42,16 @@ public class Projects {
     @Column(name = "completed", nullable = false)
     private Boolean completed = false;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "project")
     private Set<Milestones> projectMilestoness;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "master_id", insertable = false, updatable = false)
     private Users master;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "project")
     private Set<TestRun> projectTestRuns;
 

@@ -6,6 +6,7 @@ import com.example.starter.entity.Projects;
 import com.example.starter.model.PagingParams;
 import com.example.starter.model.PagingResponse;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -30,5 +31,20 @@ public class ProjectsService extends BaseService {
             em.close();
         }
         return response;
+    }
+
+    public static Projects findById(Long projectId) {
+        EntityManager em = getEntityManager();
+
+        Projects project = null;
+        try {
+            project = em.find(Projects.class, projectId);
+        } finally {
+            em.close();
+        }
+        if (project == null) {
+            throw new EntityNotFoundException("Can't find Project for ID " + projectId);
+        }
+        return project;
     }
 }
