@@ -2,6 +2,7 @@ package com.example.starter.service;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.Persistence;
 
 public class BaseService {
@@ -26,5 +27,20 @@ public class BaseService {
         } finally {
             em.close();
         }
+    }
+
+    public static <T> T findById(Class<T> clazz, Long id) {
+        EntityManager em = getEntityManager();
+
+        T project = null;
+        try {
+            project = em.find(clazz, id);
+        } finally {
+            em.close();
+        }
+        if (project == null) {
+            throw new EntityNotFoundException("Can't find " + clazz.getSimpleName() + " for ID " + id);
+        }
+        return project;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.starter.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import com.example.starter.entity.Result;
@@ -49,6 +50,31 @@ public class TestRunService extends BaseService {
                 }
                 em.persist(results[i]);
             }
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
+
+    public static void update(TestRun input) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            TestRun testRun = em.find(TestRun.class, input.getRunId());
+            if (testRun.getIsCompleted()) {
+                throw new IllegalStateException("This test run is completed. You can no longer modify this test run or add new test results.");
+            }
+            if (input.getIsCompleted()) {
+                testRun.setIsCompleted(true);
+                testRun.setCompletedOn(LocalDate.now());
+            } else {
+                testRun.setRunName(input.getRunName());
+                testRun.setMilestoneId(input.getMilestoneId());
+                testRun.setAssignedToId(input.getAssignedToId());
+                testRun.setDescription(input.getDescription());
+                testRun.setIncludeAll(input.getIncludeAll());
+            }
+            em.merge(testRun);
             em.getTransaction().commit();
         } finally {
             em.close();

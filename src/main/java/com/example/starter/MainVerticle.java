@@ -13,7 +13,10 @@ import com.example.starter.handler.SectionHandler;
 import com.example.starter.handler.TestCaseHandler;
 import com.example.starter.handler.TestRunHandler;
 import com.example.starter.handler.UserHandler;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.json.jackson.DatabindCodec;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
 
@@ -24,6 +27,13 @@ public class MainVerticle extends AbstractVerticle {
 
     @Override
     public void start() throws Exception {
+        // Register Java 8 DateTime/LocalDateTime modules
+        ObjectMapper mapper = DatabindCodec.mapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        ObjectMapper prettyMapper = DatabindCodec.prettyMapper();
+        prettyMapper.registerModule(new JavaTimeModule());
+
         // Create a Router
         Router router = Router.router(vertx);
         router.route().handler(BodyHandler.create());
@@ -99,39 +109,41 @@ public class MainVerticle extends AbstractVerticle {
         // });
 
         // PROJECT
-        router.get(PREFIX + PROJECT.toString()).handler(ProjectHandler::findAll);
-        router.post(PREFIX + PROJECT.toString()).handler(ProjectHandler::create);
-        router.get(PREFIX + PROJECT.toString() + "/:projectId").handler(ProjectHandler::findByProjectId);
+        router.get(PREFIX + PROJECT).handler(ProjectHandler::findAll);
+        router.post(PREFIX + PROJECT).handler(ProjectHandler::create);
+        router.get(PREFIX + PROJECT + "/:projectId").handler(ProjectHandler::findByProjectId);
+        router.get(PREFIX + PROJECT + "/:projectId" + TEST_RUN).handler(TestRunHandler::findAllByProjectId);
 
         // TEST CASE
-        router.post(PREFIX + TEST_CASE.toString()).handler(TestCaseHandler::addTestCase);
-        router.get(PREFIX + TEST_CASE.toString() + "/:projectId").handler(TestCaseHandler::findAllByProjectId);
+        router.post(PREFIX + TEST_CASE).handler(TestCaseHandler::addTestCase);
+        router.get(PREFIX + TEST_CASE + "/:projectId").handler(TestCaseHandler::findAllByProjectId);
 
         // MILESTONE
-        router.post(PREFIX + MILESTONE.toString()).handler(MilestoneHandler::create);
-        router.get(PREFIX + MILESTONE.toString() + "/:projectId").handler(MilestoneHandler::findAllByProjectId);
+        router.post(PREFIX + MILESTONE).handler(MilestoneHandler::create);
+        router.get(PREFIX + MILESTONE + "/:projectId").handler(MilestoneHandler::findAllByProjectId);
 
         // TEST RUN
-        router.post(PREFIX + TEST_RUN.toString()).handler(TestRunHandler::create);
-        router.get(PREFIX + TEST_RUN.toString() + "/:projectId").handler(TestRunHandler::findAllByProjectId);
+        router.post(PREFIX + TEST_RUN).handler(TestRunHandler::create);
+        router.get(PREFIX + TEST_RUN + "/:testRunId").handler(TestRunHandler::findByTestRunId);
+        router.put(PREFIX + TEST_RUN).handler(TestRunHandler::update);
 
         // SECTION
-        router.get(PREFIX + SECTION.toString() + "/:projectId").handler(SectionHandler::findAllByProjectId);
-        router.post(PREFIX + SECTION.toString()).handler(SectionHandler::create);
+        router.get(PREFIX + SECTION + "/:projectId").handler(SectionHandler::findAllByProjectId);
+        router.post(PREFIX + SECTION).handler(SectionHandler::create);
 
         // PRIORITY
-        router.get(PREFIX + PRIORITY.toString()).handler(PriorityHandler::findAll);
+        router.get(PREFIX + PRIORITY).handler(PriorityHandler::findAll);
 
         // USER
-        router.get(PREFIX + USER.toString()).handler(UserHandler::findAll);
-        router.post(PREFIX + USER.toString()).handler(UserHandler::create);
+        router.get(PREFIX + USER).handler(UserHandler::findAll);
+        router.post(PREFIX + USER).handler(UserHandler::create);
 
         // ROLE
-        router.get(PREFIX + ROLE.toString()).handler(RoleHandler::findAll);
+        router.get(PREFIX + ROLE).handler(RoleHandler::findAll);
 
         // RESULT
-        router.put(PREFIX + RESULT.toString()).handler(ResultHandler::update);
-        router.get(PREFIX + RESULT.toString() + "/:testRunId").handler(ResultHandler::findAllByTestRunId);
+        router.put(PREFIX + RESULT).handler(ResultHandler::update);
+        router.get(PREFIX + RESULT + "/:testRunId").handler(ResultHandler::findAllByTestRunId);
 
         // Create the HTTP server
         vertx.createHttpServer()

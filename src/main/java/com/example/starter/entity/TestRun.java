@@ -22,7 +22,16 @@ public class TestRun {
     public TestRun(TestRun testRun, String fullname, Long passedCount, Long blockedCount, Long retestCount, Long failedCount, Long untestedCount) {
         this.runId = testRun.runId;
         this.runName = testRun.runName;
+        this.description = testRun.description;
         this.createdOn = testRun.createdOn;
+        this.milestoneId = testRun.milestoneId;
+        this.userId = testRun.userId;
+        this.projectId = testRun.projectId;
+        this.planId = testRun.planId;
+        this.isCompleted = testRun.isCompleted;
+        this.completedOn = testRun.completedOn;
+        this.includeAll = testRun.includeAll;
+        this.assignedToId = testRun.assignedToId;
         this.passedCount = passedCount;
         this.blockedCount = blockedCount;
         this.retestCount = retestCount;
