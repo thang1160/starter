@@ -41,4 +41,31 @@ public class TestCaseHandler {
             }
         }, false, null);
     }
+
+    public static void update(RoutingContext rc) {
+        rc.vertx().executeBlocking(future -> {
+            try {
+                TestCase testCase = rc.body().asPojo(TestCase.class);
+                TestCaseService.update(testCase);
+                Util.sendResponse(rc, 200, "successfully update test run");
+            } catch (Exception e) {
+                _LOGGER.log(Level.SEVERE, "update test run handler failed", e);
+                Util.sendResponse(rc, 500, e.getMessage());
+            }
+        }, false, null);
+    }
+
+    public static void findByTestCaseId(RoutingContext rc) {
+        rc.vertx().executeBlocking(future -> {
+            String stringId = rc.pathParam("testCaseId");
+            try {
+                Long testCaseId = Long.parseLong(stringId);
+                TestCase project = BaseService.findById(TestCase.class, testCaseId);
+                Util.sendResponse(rc, 200, project);
+            } catch (Exception e) {
+                _LOGGER.log(Level.SEVERE, "find test case handler failed", e);
+                Util.sendResponse(rc, 500, e.getMessage());
+            }
+        }, false, null);
+    }
 }

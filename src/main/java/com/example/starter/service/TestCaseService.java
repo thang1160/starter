@@ -24,4 +24,23 @@ public class TestCaseService extends BaseService {
         }
         return result;
     }
+
+    public static void update(TestCase input) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            TestCase testCase = em.find(TestCase.class, input.getCaseId());
+            testCase.setCaseName(input.getCaseName());
+            testCase.setSectionId(input.getSectionId());
+            testCase.setPriorityId(input.getPriorityId());
+            testCase.setEstimate(input.getEstimate());
+            testCase.setPreconditions(input.getPreconditions());
+            testCase.setSteps(input.getSteps());
+            testCase.setExpectedResult(input.getExpectedResult());
+            em.merge(testCase);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
 }
