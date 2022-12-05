@@ -56,4 +56,17 @@ public class UserHandler {
             }
         }, false, null);
     }
+
+    public static void update(RoutingContext rc) {
+        rc.vertx().executeBlocking(future -> {
+            try {
+                Users user = rc.body().asPojo(Users.class);
+                UsersService.update(user);
+                Util.sendResponse(rc, 200, "successfully update user");
+            } catch (Exception e) {
+                _LOGGER.log(Level.SEVERE, "update user handler failed", e);
+                Util.sendResponse(rc, 500, e.getMessage());
+            }
+        }, false, null);
+    }
 }

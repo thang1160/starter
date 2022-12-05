@@ -139,6 +139,7 @@ public class MainVerticle extends AbstractVerticle {
         // USER
         router.get(PREFIX + USER).handler(UserHandler::findAll);
         router.post(PREFIX + USER).handler(UserHandler::create);
+        router.put(PREFIX + USER).handler(UserHandler::update);
 
         // ROLE
         router.get(PREFIX + ROLE).handler(RoleHandler::findAll);

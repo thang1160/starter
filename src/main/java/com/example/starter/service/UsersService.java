@@ -20,4 +20,17 @@ public class UsersService extends BaseService {
         return result;
     }
 
+    public static void update(Users input) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Users user = em.find(Users.class, input.getUserId());
+            user.setRoleId(input.getRoleId());
+            em.merge(user);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
+
 }
