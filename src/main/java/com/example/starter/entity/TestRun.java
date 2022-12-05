@@ -3,6 +3,7 @@ package com.example.starter.entity;
 import java.time.LocalDate;
 import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -103,7 +104,7 @@ public class TestRun {
     @JoinColumn(name = "plan_id", insertable = false, updatable = false)
     private TestPlan plan;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "testRun")
     private Set<Result> testRunResults;
 

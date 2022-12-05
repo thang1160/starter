@@ -25,8 +25,10 @@ public class TestRunHandler {
                 List<TestCase> testCases = new ArrayList<>();
                 if (Optional.ofNullable(testRun.getIncludeAll()).orElse(false)) {
                     testCases = TestCaseService.findAllByProjectId(testRun.getProjectId());
+                    TestRunService.create(testRun, testCases);
+                } else {
+                    TestRunService.create(testRun, testRun.getTestRunResults());
                 }
-                TestRunService.create(testRun, testCases);
                 Util.sendResponse(rc, 200, "successfully created TestRun");
             } catch (Exception e) {
                 _LOGGER.log(Level.SEVERE, "create TestRun handler failed", e);

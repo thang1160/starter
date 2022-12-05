@@ -3,6 +3,7 @@ package com.example.starter.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import com.example.starter.entity.Result;
 import com.example.starter.entity.TestCase;
 import com.example.starter.entity.TestRun;
@@ -37,18 +38,36 @@ public class TestRunService extends BaseService {
         try {
             em.getTransaction().begin();
             em.persist(testRun);
-            Result[] results = testCases.stream().map(testCase -> {
-                Result r = new Result();
-                r.setCaseId(testCase.getCaseId());
-                r.setRunId(testRun.getRunId());
-                return r;
-            }).toArray(Result[]::new);
-            for (int i = 0; i < results.length; i++) {
+            for (int i = 0; i < testCases.size(); i++) {
+                Result result = new Result();
+                result.setCaseId(testCases.get(i).getCaseId());
+                result.setRunId(testRun.getRunId());
                 if (i > 0 && i % BATCH_SIZE == 0) {
                     em.flush();
                     em.clear();
                 }
-                em.persist(results[i]);
+                em.persist(result);
+            }
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
+
+    public static void create(TestRun testRun, Set<Result> results) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(testRun);
+            int i = 0;
+            for (Result result : results) {
+                result.setRunId(testRun.getRunId());
+                if (i > 0 && i % BATCH_SIZE == 0) {
+                    em.flush();
+                    em.clear();
+                }
+                em.persist(result);
+                i++;
             }
             em.getTransaction().commit();
         } finally {
