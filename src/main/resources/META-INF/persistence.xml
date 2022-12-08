@@ -7,7 +7,7 @@
             <property name="jakarta.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlserver://127.0.0.1:1433;DatabaseName=tms_db"/>
             <property name="jakarta.persistence.jdbc.user" value="SA"/>
-            <property name="jakarta.persistence.jdbc.password" value="Thang1997"/>
+            <property name="jakarta.persistence.jdbc.password" value="Tms123456"/>
             <property name="hibernate.show_sql" value="true"/>
         </properties>
     </persistence-unit>
