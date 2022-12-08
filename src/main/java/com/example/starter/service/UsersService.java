@@ -2,6 +2,7 @@ package com.example.starter.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.example.starter.Util;
 import com.example.starter.entity.Users;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -33,4 +34,26 @@ public class UsersService extends BaseService {
         }
     }
 
+    public static Integer getUserIdByEmailAndPassword(String email, String password) {
+        Integer userId = 0;
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Users> query = em.createQuery("select u from Users u where u.email = ?1", Users.class);
+            query.setParameter(1, email);
+            query.setMaxResults(1);
+            List<Users> users = query.getResultList();
+            if (!users.isEmpty()) {
+                Users user = users.get(0);
+                String salt = user.getSalt();
+                String realPassword = user.getPassword();
+                String hashedPassword = Util.hashPassword(password, salt);
+                if (realPassword.equals(hashedPassword)) {
+                    userId = user.getUserId();
+                }
+            }
+        } finally {
+            em.close();
+        }
+        return userId;
+    }
 }

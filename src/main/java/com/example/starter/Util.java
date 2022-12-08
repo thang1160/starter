@@ -1,5 +1,9 @@
 package com.example.starter;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -9,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import com.example.starter.core.Exclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -101,5 +107,15 @@ public class Util {
 
     public static String hashPassword(String password, String salt) {
         return org.apache.commons.codec.digest.DigestUtils.sha256Hex(password + salt);
+    }
+
+    public static String readFile(String fileName) throws URISyntaxException, IOException {
+        java.nio.file.Path path = Paths.get(Util.class.getClassLoader()
+                .getResource(fileName).toURI());
+        String data = null;
+        try (Stream<String> lines = Files.lines(path)) {
+            data = lines.collect(Collectors.joining("\n"));
+        }
+        return data;
     }
 }

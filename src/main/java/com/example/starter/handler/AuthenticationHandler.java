@@ -1,11 +1,12 @@
 package com.example.starter.handler;
 
-import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import com.example.starter.Util;
-import com.example.starter.dao.AccountDAO;
-import com.example.starter.model.Profile;
+import com.example.starter.core.JWT;
+import com.example.starter.entity.Users;
+import com.example.starter.service.BaseService;
+import com.example.starter.service.UsersService;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.auth.JWTOptions;
 import io.vertx.ext.auth.jwt.JWTAuth;
@@ -13,29 +14,30 @@ import io.vertx.ext.web.RoutingContext;
 
 public class AuthenticationHandler {
     private AuthenticationHandler() {}
-    private static final String USERNAME = "username";
+
     private static final Logger _LOGGER = Logger.getLogger(AuthenticationHandler.class.getName());
 
     public static void login(RoutingContext rc, JWTAuth jwt) {
         rc.vertx().executeBlocking(blockingCodeHandler -> {
             try {
                 JsonObject json = rc.body().asJsonObject();
-                String username = json.getString(USERNAME);
+                String email = json.getString("email");
                 String password = json.getString("password");
-                if (username == null || password == null) {
+                if (email == null || password == null) {
                     rc.response().setStatusCode(400).end();
                     return;
                 }
-                int accountId = AccountDAO.getAccountId(username, password);
+                int accountId = UsersService.getUserIdByEmailAndPassword(email, password);
                 if (accountId == 0) {
                     rc.response().setStatusCode(401).end();
                     return;
                 }
                 rc.response().end(jwt.generateToken(
-                        new JsonObject().put("sub", accountId).put(USERNAME, username),
-                        new JWTOptions().setAlgorithm("RS256").setExpiresInMinutes(120)));
-            } catch (Exception ex) {
-                blockingCodeHandler.fail(ex);
+                        new JsonObject().put("sub", accountId).put("email", email),
+                        new JWTOptions().setAlgorithm(JWT.algorithm).setExpiresInMinutes(120)));
+            } catch (Exception e) {
+                _LOGGER.log(Level.SEVERE, "login failed: ", e);
+                Util.sendResponse(rc, 500, e.getMessage());
             }
         }, false, null);
     }
@@ -43,14 +45,9 @@ public class AuthenticationHandler {
     public static void profile(RoutingContext rc) {
         rc.vertx().executeBlocking(future -> {
             try {
-                int accountId = Integer.parseInt(rc.user().principal().getString("sub"));
-                String username = rc.user().principal().getString(USERNAME);
-                List<String> functions = AccountDAO.getListFunction(accountId);
-                Profile profile = new Profile();
-                profile.setId(accountId);
-                profile.setUsername(username);
-                profile.setFunctions(functions);
-                Util.sendResponse(rc, 200, profile);
+                Long userId = Long.parseLong(rc.user().principal().getString("sub"));
+                Users user = BaseService.findById(Users.class, userId);
+                Util.sendResponse(rc, 200, user);
             } catch (Exception e) {
                 _LOGGER.severe(e.getMessage());
                 Util.sendResponse(rc, 500, e.getMessage());
