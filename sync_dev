@@ -1,0 +1,3 @@
+env JAVA_HOME=/usr/java/jdk-11 mvn clean
+env JAVA_HOME=/usr/java/jdk-11 mvn -U package
+rsync -av --progress --delete --delete-excluded --rsh='ssh' target/ root@35.225.210.195:/opt/tms-service/
