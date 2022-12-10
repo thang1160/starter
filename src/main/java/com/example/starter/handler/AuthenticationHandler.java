@@ -1,11 +1,15 @@
 package com.example.starter.handler;
 
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.example.starter.Util;
 import com.example.starter.core.JWT;
+import com.example.starter.entity.Functionality;
 import com.example.starter.entity.Users;
 import com.example.starter.service.BaseService;
+import com.example.starter.service.FunctionalityService;
 import com.example.starter.service.UsersService;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.auth.JWTOptions;
@@ -46,7 +50,11 @@ public class AuthenticationHandler {
         rc.vertx().executeBlocking(future -> {
             try {
                 Long userId = Long.parseLong(rc.user().principal().getString("sub"));
-                Users user = BaseService.findById(Users.class, userId);
+                CompletableFuture<Users> userFuture = CompletableFuture.supplyAsync(() -> BaseService.findById(Users.class, userId));
+                CompletableFuture<List<Functionality>> functionalitiesFuture = CompletableFuture.supplyAsync(() -> FunctionalityService.findByUserId(userId));
+                CompletableFuture.allOf(userFuture, functionalitiesFuture).get();
+                Users user = userFuture.get();
+                user.setFunctionalities(functionalitiesFuture.get());
                 Util.sendResponse(rc, 200, user);
             } catch (Exception e) {
                 _LOGGER.severe(e.getMessage());

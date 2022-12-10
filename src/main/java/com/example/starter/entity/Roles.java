@@ -27,6 +27,10 @@ public class Roles {
     @OneToMany(mappedBy = "role")
     private Set<Users> roleUserss;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "role")
+    private Set<RoleFunctionality> roleFunctionalities;
+
     public Integer getRoleId() {
         return roleId;
     }
@@ -57,6 +61,14 @@ public class Roles {
 
     public void setRoleUserss(final Set<Users> roleUserss) {
         this.roleUserss = roleUserss;
+    }
+
+    public Set<RoleFunctionality> getRoleFunctionalities() {
+        return roleFunctionalities;
+    }
+
+    public void setRoleFunctionalities(final Set<RoleFunctionality> roleFunctionalities) {
+        this.roleFunctionalities = roleFunctionalities;
     }
 
 }
