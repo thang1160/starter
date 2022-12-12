@@ -33,7 +33,7 @@ public class ProjectHandler {
             try {
                 Projects project = rc.body().asPojo(Projects.class);
                 BaseService.create(project);
-                Util.sendResponse(rc, 200, "successfully created project");
+                Util.sendResponse(rc, 200, project);
             } catch (Exception e) {
                 _LOGGER.log(Level.SEVERE, "add project handler failed", e);
                 Util.sendResponse(rc, 500, e.getMessage());
