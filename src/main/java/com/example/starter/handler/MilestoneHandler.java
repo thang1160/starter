@@ -20,7 +20,7 @@ public class MilestoneHandler {
         rc.vertx().executeBlocking(future -> {
             try {
                 Milestones milestones = rc.body().asPojo(Milestones.class);
-                if (Optional.ofNullable(milestones.isCompleted()).orElse(false)) {
+                if (Optional.ofNullable(milestones.getCompleted()).orElse(false)) {
                     milestones.setCompletedOn(LocalDate.now());
                 } else {
                     milestones.setCompletedOn(milestones.getEndDate());

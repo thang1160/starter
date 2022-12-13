@@ -12,7 +12,9 @@ public class MilestonesService extends BaseService {
         List<Milestones> result = new ArrayList<>();
         EntityManager em = getEntityManager();
         try {
-            TypedQuery<Milestones> query = em.createQuery("select m from Milestones m where m.projectId = ?1", Milestones.class);
+            TypedQuery<Milestones> query = em.createQuery("select new com.example.starter.entity.Milestones(m, sum(case when t.isCompleted = 0 then 1 else 0 end))\n" +
+                    "from Milestones m left join m.milestoneTestRuns t where m.projectId = ?1\n" +
+                    "group by m.milestoneId, m.milestoneName, m.description, m.startDate, m.endDate, m.isStarted, m.projectId, m.completedOn, m.status", Milestones.class);
             query.setParameter(1, projectId);
             result = query.getResultList();
         } finally {

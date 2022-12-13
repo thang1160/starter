@@ -17,6 +17,21 @@ import jakarta.persistence.Transient;
 @Entity
 public class Milestones {
 
+    public Milestones() {}
+
+    public Milestones(Milestones milestones, Long activeTestRun) {
+        this.milestoneId = milestones.milestoneId;
+        this.milestoneName = milestones.milestoneName;
+        this.description = milestones.description;
+        this.startDate = milestones.startDate;
+        this.endDate = milestones.endDate;
+        this.isStarted = milestones.isStarted;
+        this.projectId = milestones.projectId;
+        this.completedOn = milestones.completedOn;
+        this.status = milestones.status;
+        this.activeTestRun = activeTestRun;
+    }
+
     @Id
     @Column(nullable = false, updatable = false, name = "milestone_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,9 +69,6 @@ public class Milestones {
     @JsonIgnore
     @OneToMany(mappedBy = "milestone")
     private Set<TestRun> milestoneTestRuns;
-
-    @Transient
-    private Boolean completed;
 
     public Integer getMilestoneId() {
         return milestoneId;
@@ -146,12 +158,26 @@ public class Milestones {
         this.milestoneTestRuns = milestoneTestRuns;
     }
 
-    public Boolean isCompleted() {
-        return this.completed;
+    @Transient
+    private Boolean completed;
+
+    @Transient
+    private Long activeTestRun;
+
+    public Boolean getCompleted() {
+        return completed;
     }
 
     public void setCompleted(Boolean completed) {
         this.completed = completed;
+    }
+
+    public Long getActiveTestRun() {
+        return this.activeTestRun;
+    }
+
+    public void setActiveTestRun(Long activeTestRun) {
+        this.activeTestRun = activeTestRun;
     }
 
     @Override
