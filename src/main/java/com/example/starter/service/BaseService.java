@@ -1,20 +1,32 @@
 package com.example.starter.service;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.Persistence;
 
 public class BaseService {
+
+    private static final Logger logger = Logger.getLogger(BaseService.class.getName());
+
     protected BaseService() {}
 
-    private static final EntityManagerFactory emf;
+    private static EntityManagerFactory emf;
 
     static {
-        emf = Persistence.createEntityManagerFactory("pu");
+        try {
+            emf = Persistence.createEntityManagerFactory("pu");
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "initialize BaseService failed: ", e);
+        }
     }
 
     public static EntityManager getEntityManager() {
+        if (emf == null) {
+            emf = Persistence.createEntityManagerFactory("pu");
+        }
         return emf.createEntityManager();
     }
 
