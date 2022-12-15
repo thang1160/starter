@@ -17,7 +17,9 @@ public class TestCaseHandler {
     public static void addTestCase(RoutingContext rc) {
         rc.vertx().executeBlocking(future -> {
             try {
+                Integer userId = Integer.parseInt(rc.user().principal().getString("sub"));
                 TestCase testCase = rc.body().asPojo(TestCase.class);
+                testCase.setUserId(userId);
                 testCase.setUpdatedBy(testCase.getUserId());
                 BaseService.create(testCase);
                 Util.sendResponse(rc, 200, "successfully created TestCase");

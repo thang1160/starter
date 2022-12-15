@@ -30,6 +30,7 @@ public class Milestones {
         this.completedOn = milestones.completedOn;
         this.status = milestones.status;
         this.userId = milestones.userId;
+        this.isCompleted = milestones.isCompleted;
         this.activeTestRun = activeTestRun;
     }
 
@@ -56,7 +57,7 @@ public class Milestones {
     @Column(name = "project_id", nullable = false)
     private Integer projectId;
 
-    @Column(name = "completed_on", nullable = false)
+    @Column(name = "completed_on")
     private LocalDate completedOn;
 
     @Column(name = "status")
@@ -64,6 +65,9 @@ public class Milestones {
 
     @Column(nullable = false)
     private Integer userId;
+
+    @Column(name = "is_completed", nullable = false)
+    private Boolean isCompleted = false;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
@@ -183,19 +187,16 @@ public class Milestones {
         this.user = user;
     }
 
-    @Transient
-    private Boolean completed;
+    public Boolean getIsCompleted() {
+        return isCompleted;
+    }
+
+    public void setIsCompleted(final Boolean isCompleted) {
+        this.isCompleted = isCompleted;
+    }
 
     @Transient
     private Long activeTestRun;
-
-    public Boolean getCompleted() {
-        return completed;
-    }
-
-    public void setCompleted(Boolean completed) {
-        this.completed = completed;
-    }
 
     public Long getActiveTestRun() {
         return this.activeTestRun;
