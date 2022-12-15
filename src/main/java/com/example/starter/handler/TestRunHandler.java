@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.example.starter.Util;
+import com.example.starter.entity.Activity;
 import com.example.starter.entity.TestCase;
 import com.example.starter.entity.TestRun;
 import com.example.starter.service.BaseService;
@@ -21,7 +22,9 @@ public class TestRunHandler {
     public static void create(RoutingContext rc) {
         rc.vertx().executeBlocking(future -> {
             try {
+                Integer userId = Integer.parseInt(rc.user().principal().getString("sub"));
                 TestRun testRun = rc.body().asPojo(TestRun.class);
+                testRun.setUserId(userId);
                 List<TestCase> testCases = new ArrayList<>();
                 if (Optional.ofNullable(testRun.getIncludeAll()).orElse(false)) {
                     testCases = TestCaseService.findAllByProjectId(testRun.getProjectId());
@@ -29,6 +32,15 @@ public class TestRunHandler {
                 } else {
                     TestRunService.create(testRun, testRun.getTestRunResults());
                 }
+
+                Activity activity = new Activity();
+                activity.setAction("Created by");
+                activity.setName(testRun.getRunName());
+                activity.setType("Test Run");
+                activity.setUserId(userId);
+                activity.setProjectId(testRun.getProjectId());
+                activity.setTargetId(testRun.getRunId());
+                BaseService.create(activity);
                 Util.sendResponse(rc, 200, "successfully created TestRun");
             } catch (Exception e) {
                 _LOGGER.log(Level.SEVERE, "create TestRun handler failed", e);
@@ -54,8 +66,20 @@ public class TestRunHandler {
     public static void update(RoutingContext rc) {
         rc.vertx().executeBlocking(future -> {
             try {
+                Integer userId = Integer.parseInt(rc.user().principal().getString("sub"));
                 TestRun testRun = rc.body().asPojo(TestRun.class);
                 TestRunService.update(testRun);
+                if (testRun.getIsCompleted()) {
+                    Activity activity = new Activity();
+                    activity.setAction("Closed by");
+                    activity.setName(testRun.getRunName());
+                    activity.setType("Test Run");
+                    activity.setUserId(userId);
+                    activity.setProjectId(testRun.getProjectId());
+                    activity.setTargetId(testRun.getRunId());
+                    activity.setDescription("(completed)");
+                    BaseService.create(activity);
+                }
                 Util.sendResponse(rc, 200, "successfully update test run");
             } catch (Exception e) {
                 _LOGGER.log(Level.SEVERE, "update test run handler failed", e);

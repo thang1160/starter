@@ -55,6 +55,10 @@ public class Projects {
     @OneToMany(mappedBy = "project")
     private Set<TestRun> projectTestRuns;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "project")
+    private Set<Activity> projectActivitys;
+
     @Transient
     private Long activeMilestone;
 
@@ -139,6 +143,14 @@ public class Projects {
 
     public void setActiveTestRun(Long activeTestRun) {
         this.activeTestRun = activeTestRun;
+    }
+
+    public Set<Activity> getProjectActivitys() {
+        return projectActivitys;
+    }
+
+    public void setProjectActivitys(final Set<Activity> projectActivitys) {
+        this.projectActivitys = projectActivitys;
     }
 
     @Override

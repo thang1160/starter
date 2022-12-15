@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.example.starter.Util;
+import com.example.starter.entity.Activity;
 import com.example.starter.entity.Milestones;
 import com.example.starter.service.BaseService;
 import com.example.starter.service.MilestonesService;
@@ -19,13 +20,24 @@ public class MilestoneHandler {
     public static void create(RoutingContext rc) {
         rc.vertx().executeBlocking(future -> {
             try {
+                Integer userId = Integer.parseInt(rc.user().principal().getString("sub"));
                 Milestones milestones = rc.body().asPojo(Milestones.class);
+                milestones.setUserId(userId);
                 if (Optional.ofNullable(milestones.getCompleted()).orElse(false)) {
                     milestones.setCompletedOn(LocalDate.now());
                 } else {
                     milestones.setCompletedOn(milestones.getEndDate());
                 }
                 BaseService.create(milestones);
+
+                Activity activity = new Activity();
+                activity.setAction("Created by");
+                activity.setName(milestones.getMilestoneName());
+                activity.setType("Milestone");
+                activity.setUserId(userId);
+                activity.setProjectId(milestones.getProjectId());
+                activity.setTargetId(milestones.getMilestoneId());
+                BaseService.create(activity);
                 Util.sendResponse(rc, 200, "successfully created Milestone");
             } catch (Exception e) {
                 _LOGGER.log(Level.SEVERE, "add Milestone handler failed", e);

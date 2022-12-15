@@ -4,6 +4,7 @@ import static com.example.starter.Path.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.example.starter.core.JWT;
+import com.example.starter.handler.ActivityHandler;
 import com.example.starter.handler.AuthenticationHandler;
 import com.example.starter.handler.MilestoneHandler;
 import com.example.starter.handler.PriorityHandler;
@@ -17,7 +18,6 @@ import com.example.starter.handler.UserHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.http.Cookie;
 import io.vertx.core.json.jackson.DatabindCodec;
 import io.vertx.ext.auth.jwt.JWTAuth;
 import io.vertx.ext.web.Router;
@@ -51,13 +51,6 @@ public class MainVerticle extends AbstractVerticle {
 
         router.post(PREFIX + LOGIN).handler(rc -> AuthenticationHandler.login(rc, jwt));
 
-        router.delete(PREFIX + LOGOUT).handler(rc -> {
-            Cookie cookie = rc.request().getCookie("token");
-            if (cookie != null)
-                cookie.setMaxAge(0);
-            rc.response().setStatusCode(204).end();
-        });
-
         router.route().handler(JWTAuthHandler.create(jwt));
 
         router.get(PREFIX + LOGIN).handler(AuthenticationHandler::profile);
@@ -68,6 +61,7 @@ public class MainVerticle extends AbstractVerticle {
         router.get(PREFIX + PROJECT + "/:projectId").handler(ProjectHandler::findByProjectId);
         router.get(PREFIX + PROJECT + "/:projectId" + TEST_RUN).handler(TestRunHandler::findAllByProjectId);
         router.get(PREFIX + PROJECT + "/:projectId" + TEST_CASE).handler(TestCaseHandler::findAllByProjectId);
+        router.get(PREFIX + PROJECT + "/:projectId" + ACTIVITY).handler(ActivityHandler::findAllByProjectId);
 
         // TEST CASE
         router.post(PREFIX + TEST_CASE).handler(TestCaseHandler::addTestCase);

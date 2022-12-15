@@ -29,6 +29,7 @@ public class Milestones {
         this.projectId = milestones.projectId;
         this.completedOn = milestones.completedOn;
         this.status = milestones.status;
+        this.userId = milestones.userId;
         this.activeTestRun = activeTestRun;
     }
 
@@ -61,6 +62,9 @@ public class Milestones {
     @Column(name = "status")
     private Boolean status;
 
+    @Column(nullable = false)
+    private Integer userId;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id", nullable = false, insertable = false, updatable = false)
@@ -69,6 +73,11 @@ public class Milestones {
     @JsonIgnore
     @OneToMany(mappedBy = "milestone")
     private Set<TestRun> milestoneTestRuns;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId", nullable = false, insertable = false, updatable = false)
+    private Users user;
 
     public Integer getMilestoneId() {
         return milestoneId;
@@ -142,6 +151,14 @@ public class Milestones {
         this.status = status;
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(final Integer userId) {
+        this.userId = userId;
+    }
+
     public Projects getProject() {
         return project;
     }
@@ -156,6 +173,14 @@ public class Milestones {
 
     public void setMilestoneTestRuns(final Set<TestRun> milestoneTestRuns) {
         this.milestoneTestRuns = milestoneTestRuns;
+    }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(final Users user) {
+        this.user = user;
     }
 
     @Transient
