@@ -73,6 +73,7 @@ public class MainVerticle extends AbstractVerticle {
         router.post(PREFIX + MILESTONE).handler(MilestoneHandler::create);
         router.get(PREFIX + MILESTONE + "/:milestoneId").handler(MilestoneHandler::findAllByMilestoneId);
         router.put(PREFIX + MILESTONE).handler(MilestoneHandler::update);
+        router.get(PREFIX + MILESTONE + "/:milestoneId" + TEST_RUN).handler(TestRunHandler::findAllByMilestoneId);
 
         // TEST RUN
         router.post(PREFIX + TEST_RUN).handler(TestRunHandler::create);

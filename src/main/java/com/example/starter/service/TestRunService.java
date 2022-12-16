@@ -99,4 +99,24 @@ public class TestRunService extends BaseService {
             em.close();
         }
     }
+
+    public static List<TestRun> findAllByMilestoneId(int milestoneId) {
+        List<TestRun> result = new ArrayList<>();
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<TestRun> query = em.createQuery("select new com.example.starter.entity.TestRun(t, u.fullname\n" +
+                    ", sum(case when r.status = 'Passed' then 1 else 0 end)\n" +
+                    ", sum(case when r.status = 'Blocked' then 1 else 0 end)\n" +
+                    ", sum(case when r.status = 'Retest' then 1 else 0 end)\n" +
+                    ", sum(case when r.status = 'Failed' then 1 else 0 end)\n" +
+                    ", sum(case when r.status = 'Untested' then 1 else 0 end)\n" +
+                    ") from TestRun t join t.user u left join t.testRunResults r where t.milestoneId = ?1\n" +
+                    "group by t.runId, t.runName, t.description, t.createdOn, t.milestoneId, t.userId, t.projectId, t.planId, t.isCompleted, t.completedOn, t.includeAll, t.assignedToId, u.fullname", TestRun.class);
+            query.setParameter(1, milestoneId);
+            result = query.getResultList();
+        } finally {
+            em.close();
+        }
+        return result;
+    }
 }

@@ -101,4 +101,18 @@ public class TestRunHandler {
             }
         }, false, null);
     }
+
+    public static void findAllByMilestoneId(RoutingContext rc) {
+        rc.vertx().executeBlocking(future -> {
+            String stringId = rc.pathParam("milestoneId");
+            try {
+                int milestoneId = Integer.parseInt(stringId);
+                List<TestRun> response = TestRunService.findAllByMilestoneId(milestoneId);
+                Util.sendResponse(rc, 200, response);
+            } catch (Exception e) {
+                _LOGGER.log(Level.SEVERE, "get test run handler failed with id {0}:{1}", new Object[] {stringId, e});
+                Util.sendResponse(rc, 500, e.getMessage());
+            }
+        }, false, null);
+    }
 }
