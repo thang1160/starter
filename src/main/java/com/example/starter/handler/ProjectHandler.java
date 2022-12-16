@@ -23,7 +23,7 @@ public class ProjectHandler {
                 if (projectName == null || projectName.isBlank()) {
                     projectName = "";
                 }
-                PagingResponse<Projects> response = ProjectsService.findAll(params, projectName);
+                PagingResponse<Projects> response = ProjectsService.findAll(params, projectName.trim());
                 Util.sendResponse(rc, 200, response);
             } catch (Exception e) {
                 _LOGGER.log(Level.SEVERE, "get project handler failed", e);
