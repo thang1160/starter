@@ -19,7 +19,11 @@ public class ProjectHandler {
         rc.vertx().executeBlocking(future -> {
             try {
                 PagingParams params = new PagingParams(rc.request().params());
-                PagingResponse<Projects> response = ProjectsService.findAll(params);
+                String projectName = rc.request().params().get("projectName");
+                if (projectName == null || projectName.isBlank()) {
+                    projectName = "";
+                }
+                PagingResponse<Projects> response = ProjectsService.findAll(params, projectName);
                 Util.sendResponse(rc, 200, response);
             } catch (Exception e) {
                 _LOGGER.log(Level.SEVERE, "get project handler failed", e);
