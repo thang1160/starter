@@ -50,6 +50,7 @@ public class MainVerticle extends AbstractVerticle {
         JWTAuth jwt = JWTAuth.create(vertx, JWT.getSignatureOptions());
 
         router.post(PREFIX + LOGIN).handler(rc -> AuthenticationHandler.login(rc, jwt));
+        router.post(PREFIX + SIGNUP).handler(AuthenticationHandler::signup);
 
         router.route().handler(JWTAuthHandler.create(jwt));
 

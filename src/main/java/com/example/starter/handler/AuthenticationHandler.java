@@ -1,6 +1,7 @@
 package com.example.starter.handler;
 
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +21,7 @@ public class AuthenticationHandler {
     private AuthenticationHandler() {}
 
     private static final Logger _LOGGER = Logger.getLogger(AuthenticationHandler.class.getName());
+    private static final Random RANDOM = new Random();
 
     public static void login(RoutingContext rc, JWTAuth jwt) {
         rc.vertx().executeBlocking(blockingCodeHandler -> {
@@ -58,6 +60,36 @@ public class AuthenticationHandler {
                 Util.sendResponse(rc, 200, user);
             } catch (Exception e) {
                 _LOGGER.severe(e.getMessage());
+                Util.sendResponse(rc, 500, e.getMessage());
+            }
+        }, false, null);
+    }
+
+    public static void signup(RoutingContext rc) {
+        rc.vertx().executeBlocking(future -> {
+            try {
+                Users user = rc.body().asPojo(Users.class);
+                // create passwordSalt string with 6 random characters a-z A-Z 0-9 using StringBuilder
+                StringBuilder passwordSalt = new StringBuilder();
+                for (int i = 0; i < 6; i++) {
+                    int random = RANDOM.nextInt(62);
+                    if (random < 10) {
+                        passwordSalt.append(random);
+                    } else if (random < 36) {
+                        passwordSalt.append((char) (random + 55));
+                    } else {
+                        passwordSalt.append((char) (random + 61));
+                    }
+                }
+                // Create hashed password
+                String hashedPassword = Util.hashPassword(user.getPassword(), passwordSalt.toString());
+                user.setPassword(hashedPassword);
+                user.setSalt(passwordSalt.toString());
+                user.setRoleId(4);
+                BaseService.create(user);
+                Util.sendResponse(rc, 200, "successfully created user");
+            } catch (Exception e) {
+                _LOGGER.log(Level.SEVERE, "create user handler failed", e);
                 Util.sendResponse(rc, 500, e.getMessage());
             }
         }, false, null);
