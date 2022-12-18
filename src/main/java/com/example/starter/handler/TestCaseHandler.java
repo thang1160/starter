@@ -1,6 +1,7 @@
 package com.example.starter.handler;
 
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.example.starter.Util;
@@ -64,6 +65,20 @@ public class TestCaseHandler {
                 Long testCaseId = Long.parseLong(stringId);
                 TestCase project = BaseService.findById(TestCase.class, testCaseId);
                 Util.sendResponse(rc, 200, project);
+            } catch (Exception e) {
+                _LOGGER.log(Level.SEVERE, "find test case handler failed", e);
+                Util.sendResponse(rc, 500, e.getMessage());
+            }
+        }, false, null);
+    }
+
+    public static void deleteByTestCaseId(RoutingContext rc) {
+        rc.vertx().executeBlocking(future -> {
+            String stringId = rc.pathParam("testCaseId");
+            try {
+                Long testCaseId = Long.parseLong(stringId);
+                int deletedCount = TestCaseService.delete(testCaseId);
+                Util.sendResponse(rc, 200, Map.of("deletedCount", deletedCount));
             } catch (Exception e) {
                 _LOGGER.log(Level.SEVERE, "find test case handler failed", e);
                 Util.sendResponse(rc, 500, e.getMessage());

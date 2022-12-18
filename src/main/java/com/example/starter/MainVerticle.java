@@ -69,6 +69,7 @@ public class MainVerticle extends AbstractVerticle {
         router.post(PREFIX + TEST_CASE).handler(TestCaseHandler::addTestCase);
         router.get(PREFIX + TEST_CASE + "/:testCaseId").handler(TestCaseHandler::findByTestCaseId);
         router.put(PREFIX + TEST_CASE).handler(TestCaseHandler::update);
+        router.delete(PREFIX + TEST_CASE + "/:testCaseId").handler(TestCaseHandler::deleteByTestCaseId);
 
         // MILESTONE
         router.post(PREFIX + MILESTONE).handler(MilestoneHandler::create);
