@@ -75,8 +75,20 @@ public class MilestoneHandler {
     public static void update(RoutingContext rc) {
         rc.vertx().executeBlocking(future -> {
             try {
+                Integer userId = Integer.parseInt(rc.user().principal().getString("sub"));
                 Milestones milestone = rc.body().asPojo(Milestones.class);
                 MilestonesService.update(milestone);
+                if (milestone.getIsCompleted()) {
+                    Activity activity = new Activity();
+                    activity.setAction("Closed by");
+                    activity.setName(milestone.getMilestoneName());
+                    activity.setType("Milestone");
+                    activity.setUserId(userId);
+                    activity.setProjectId(milestone.getProjectId());
+                    activity.setTargetId(milestone.getMilestoneId());
+                    activity.setDescription("(completed)");
+                    BaseService.create(activity);
+                }
                 Util.sendResponse(rc, 200, "successfully update milestone");
             } catch (Exception e) {
                 _LOGGER.log(Level.SEVERE, "update milestone handler failed", e);
