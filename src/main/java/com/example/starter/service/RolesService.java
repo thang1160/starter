@@ -12,7 +12,7 @@ public class RolesService extends BaseService {
         List<Roles> result = new ArrayList<>();
         EntityManager em = getEntityManager();
         try {
-            TypedQuery<Roles> query = em.createQuery("select r from Roles r", Roles.class);
+            TypedQuery<Roles> query = em.createQuery("select r from Roles r where r.roleId != 1", Roles.class);
             result = query.getResultList();
         } finally {
             em.close();
