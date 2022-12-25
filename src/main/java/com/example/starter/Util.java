@@ -30,6 +30,8 @@ public class Util {
 
     private static final Logger _LOGGER = Logger.getLogger(Util.class.getName());
 
+    public static final String uploadsDirectory = "/opt/tms-upload/";
+
     private Util() {}
 
     private static final ExclusionStrategy strategy = new ExclusionStrategy() {

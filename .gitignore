@@ -187,3 +187,4 @@ nbdist/
 # SQL Server extension vscode
 sqltools_*
 src/main/resources/id_rsa
+file-uploads/*

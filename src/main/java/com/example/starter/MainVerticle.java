@@ -40,7 +40,7 @@ public class MainVerticle extends AbstractVerticle {
 
         // Create a Router
         Router router = Router.router(vertx);
-        router.route().handler(BodyHandler.create());
+        router.route().handler(BodyHandler.create().setUploadsDirectory(Util.uploadsDirectory));
         router.route().failureHandler(Util::failureResponse);
         router.route().handler(routingContext -> {
             logger.log(Level.INFO, "header: {0}\nbody: {1}", new Object[] {routingContext.request().headers(), routingContext.body().asString()});
