@@ -44,15 +44,15 @@ public class BaseService {
     public static <T> T findById(Class<T> clazz, Long id) {
         EntityManager em = getEntityManager();
 
-        T project = null;
+        T entity = null;
         try {
-            project = em.find(clazz, id);
+            entity = em.find(clazz, id);
+            if (entity == null) {
+                throw new EntityNotFoundException("Can't find " + clazz.getSimpleName() + " for ID " + id);
+            }
         } finally {
             em.close();
         }
-        if (project == null) {
-            throw new EntityNotFoundException("Can't find " + clazz.getSimpleName() + " for ID " + id);
-        }
-        return project;
+        return entity;
     }
 }

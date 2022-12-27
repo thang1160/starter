@@ -12,7 +12,8 @@ public enum Path {
     ROLE("/role"),
     RESULT("/result"),
     ACTIVITY("/activity"),
-    SIGNUP("/signup");
+    SIGNUP("/signup"),
+    ATTACHMENT("/attachment");
 
     private final String stringPath;
 

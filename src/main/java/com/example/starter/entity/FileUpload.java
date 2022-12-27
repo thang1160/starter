@@ -1,10 +1,13 @@
 package com.example.starter.entity;
 
+import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 
 @Entity
@@ -35,6 +38,10 @@ public class FileUpload {
 
     @Column(nullable = false, length = 50)
     private String contentType;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "fileUpload")
+    private Set<ResultFileUpload> resultFileUploads;
 
     public Integer getFileUploadId() {
         return fileUploadId;
@@ -74,6 +81,20 @@ public class FileUpload {
 
     public void setContentType(final String contentType) {
         this.contentType = contentType;
+    }
+
+    public Set<ResultFileUpload> getResultFileUploads() {
+        return resultFileUploads;
+    }
+
+    public void setResultFileUploads(
+            final Set<ResultFileUpload> resultFileUploads) {
+        this.resultFileUploads = resultFileUploads;
+    }
+
+    @Override
+    public String toString() {
+        return "FileUpload [fileUploadId=" + fileUploadId + ", uploadedFileName=" + uploadedFileName + ", fileName=" + fileName + ", size=" + size + ", contentType=" + contentType + "]";
     }
 
 }

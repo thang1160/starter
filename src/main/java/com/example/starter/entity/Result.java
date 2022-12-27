@@ -1,5 +1,6 @@
 package com.example.starter.entity;
 
+import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
@@ -56,6 +58,10 @@ public class Result {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "test_case_id", nullable = false, insertable = false, updatable = false)
     private TestCase testCase;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "result")
+    private Set<ResultFileUpload> resultFileUploads;
 
     public Integer getResultId() {
         return this.resultId;
@@ -113,8 +119,22 @@ public class Result {
         this.testCase = testCase;
     }
 
+    public Set<ResultFileUpload> getResultFileUploads() {
+        return resultFileUploads;
+    }
+
+    public void setResultFileUploads(final Set<ResultFileUpload> resultFileUploads) {
+        this.resultFileUploads = resultFileUploads;
+    }
+
     @Transient
     private String caseName;
+
+    @Transient
+    private String sectionName;
+
+    @Transient
+    private Set<FileUpload> fileUploads;
 
     public String getCaseName() {
         return this.caseName;
@@ -124,14 +144,19 @@ public class Result {
         this.caseName = caseName;
     }
 
-    @Transient
-    private String sectionName;
-
     public String getSectionName() {
         return this.sectionName;
     }
 
     public void setSectionName(String sectionName) {
         this.sectionName = sectionName;
+    }
+
+    public Set<FileUpload> getFileUploads() {
+        return this.fileUploads;
+    }
+
+    public void setFileUploads(Set<FileUpload> fileUploads) {
+        this.fileUploads = fileUploads;
     }
 }

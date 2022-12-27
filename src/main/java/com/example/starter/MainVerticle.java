@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import com.example.starter.core.JWT;
 import com.example.starter.handler.ActivityHandler;
 import com.example.starter.handler.AuthenticationHandler;
+import com.example.starter.handler.FileUploadHandler;
 import com.example.starter.handler.MilestoneHandler;
 import com.example.starter.handler.PriorityHandler;
 import com.example.starter.handler.ProjectHandler;
@@ -21,6 +22,7 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.json.jackson.DatabindCodec;
 import io.vertx.ext.auth.jwt.JWTAuth;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.JWTAuthHandler;
 
@@ -81,6 +83,7 @@ public class MainVerticle extends AbstractVerticle {
         router.post(PREFIX + TEST_RUN).handler(TestRunHandler::create);
         router.get(PREFIX + TEST_RUN + "/:testRunId").handler(TestRunHandler::findByTestRunId);
         router.put(PREFIX + TEST_RUN).handler(TestRunHandler::update);
+        router.get(PREFIX + TEST_RUN + "/:testRunId" + RESULT).handler(ResultHandler::findAllByTestRunId);
 
         // SECTION
         router.get(PREFIX + SECTION + "/:projectId").handler(SectionHandler::findAllByProjectId);
@@ -99,7 +102,12 @@ public class MainVerticle extends AbstractVerticle {
 
         // RESULT
         router.put(PREFIX + RESULT).handler(ResultHandler::update);
-        router.get(PREFIX + RESULT + "/:testRunId").handler(ResultHandler::findAllByTestRunId);
+        router.get(PREFIX + RESULT + "/:resultId").handler(ResultHandler::findByResultId);
+
+        WebClient client = WebClient.create(vertx);
+
+        // ATTACHMENT
+        router.get(PREFIX + ATTACHMENT + "/:fileUploadId").handler(rc -> FileUploadHandler.findByFileUploadId(rc, client));
 
         // Create the HTTP server
         vertx.createHttpServer()
