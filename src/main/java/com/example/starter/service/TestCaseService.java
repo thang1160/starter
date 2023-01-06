@@ -11,6 +11,7 @@ import jakarta.persistence.TypedQuery;
 
 public class TestCaseService extends BaseService {
     private static Logger logger = Logger.getLogger(TestCaseService.class.getName());
+    private static final int BATCH_SIZE = 100;
 
     public static void main(String[] args) {
         TestCaseService.findAllByProjectId(1);
@@ -63,5 +64,23 @@ public class TestCaseService extends BaseService {
             em.close();
         }
         return deletedCount;
+    }
+
+    public static void createBatch(List<TestCase> testCases) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            for (int i = 0; i < testCases.size(); i++) {
+                TestCase testCase = testCases.get(i);
+                if (i > 0 && i % BATCH_SIZE == 0) {
+                    em.flush();
+                    em.clear();
+                }
+                em.persist(testCase);
+            }
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
     }
 }
