@@ -4,10 +4,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
 import com.example.starter.Util;
 import com.example.starter.entity.Priorities;
 import com.example.starter.entity.Sections;
@@ -121,28 +123,40 @@ public class TestCaseHandler {
                         scanner.nextLine();
                     }
                     while (scanner.hasNextLine()) {
-                        String[] values = scanner.nextLine().split(COMMA_DELIMITER);
+                        String line = scanner.nextLine();
+                        if (StringUtils.isBlank(line)) {
+                            break;
+                        }
+                        String[] values = line.split(COMMA_DELIMITER);
                         TestCase testCase = new TestCase();
                         testCase.setCaseName(values[0]);
                         if (values[1] != null && !values[1].equals("null"))
                             testCase.setEstimate(Integer.parseInt(values[1]));
 
-                        Priorities priority = prioritiesMap.get(values[2]);
+                        String priorityName = Optional.ofNullable(values[2]).map(String::trim).orElse("");
+                        if ("".equals(priorityName)) {
+                            throw new IllegalArgumentException("Priority name invalid: " + priorityName);
+                        }
+                        Priorities priority = prioritiesMap.get(priorityName);
                         if (priority == null) {
-                            throw new IllegalArgumentException("Priority not found: " + values[2]);
+                            throw new IllegalArgumentException("Priority not found: " + priorityName);
                         }
                         testCase.setPriorityId(priority.getPrioritiesId());
 
-                        Sections section = sectionsMap.get(values[3]);
+                        String sectionName = Optional.ofNullable(values[3]).map(String::trim).orElse("");
+                        if ("".equals(sectionName)) {
+                            throw new IllegalArgumentException("Section name invalid: " + sectionName);
+                        }
+                        Sections section = sectionsMap.get(sectionName);
                         if (section == null) {
                             section = new Sections();
                             section.setProjectId(projectId);
-                            section.setSectionName(values[3]);
+                            section.setSectionName(sectionName);
                             SectionsService.create(section);
                             if (section.getSectionId() == null) {
-                                throw new IllegalArgumentException("Create section failed: " + values[3]);
+                                throw new IllegalArgumentException("Create section failed: " + sectionName);
                             }
-                            sectionsMap.put(values[3], section);
+                            sectionsMap.put(sectionName, section);
                         }
                         testCase.setSectionId(section.getSectionId());
                         testCase.setProjectId(projectId);
@@ -150,6 +164,10 @@ public class TestCaseHandler {
                         testCase.setUpdatedBy(userId);
                         testCases.add(testCase);
                     }
+                }
+                if (testCases.isEmpty()) {
+                    Util.sendResponse(rc, 500, "File not contain test cases");
+                    return;
                 }
                 TestCaseService.createBatch(testCases);
                 Util.sendResponse(rc, 200, "successfully import test cases");
