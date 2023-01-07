@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -128,25 +127,20 @@ public class TestCaseHandler {
                             break;
                         }
                         String[] values = line.split(COMMA_DELIMITER);
+                        validateFileContent(values);
                         TestCase testCase = new TestCase();
                         testCase.setCaseName(values[0]);
-                        if (values[1] != null && !values[1].equals("null"))
+                        if (!"".equals(values[1]) && !"null".equals(values[1]))
                             testCase.setEstimate(Integer.parseInt(values[1]));
 
-                        String priorityName = Optional.ofNullable(values[2]).map(String::trim).orElse("");
-                        if ("".equals(priorityName)) {
-                            throw new IllegalArgumentException("Priority name invalid: " + priorityName);
-                        }
+                        String priorityName = values[2];
                         Priorities priority = prioritiesMap.get(priorityName);
                         if (priority == null) {
                             throw new IllegalArgumentException("Priority not found: " + priorityName);
                         }
                         testCase.setPriorityId(priority.getPrioritiesId());
 
-                        String sectionName = Optional.ofNullable(values[3]).map(String::trim).orElse("");
-                        if ("".equals(sectionName)) {
-                            throw new IllegalArgumentException("Section name invalid: " + sectionName);
-                        }
+                        String sectionName = values[3];
                         Sections section = sectionsMap.get(sectionName);
                         if (section == null) {
                             section = new Sections();
@@ -169,12 +163,33 @@ public class TestCaseHandler {
                     Util.sendResponse(rc, 500, "File not contain test cases");
                     return;
                 }
-                TestCaseService.createBatch(testCases);
+                // TestCaseService.createBatch(testCases);
                 Util.sendResponse(rc, 200, "successfully import test cases");
             } catch (Exception e) {
                 _LOGGER.log(Level.SEVERE, "import test case failed {0}:{1}", new Object[] {stringId, e});
                 Util.sendResponse(rc, 500, e.getMessage());
             }
         }, false, null);
+    }
+
+    public static void validateFileContent(String[] values) {
+        if (values.length < 4) {
+            throw new IllegalArgumentException("Not enough parameters");
+        }
+        if (StringUtils.isBlank(values[0])) {
+            throw new IllegalArgumentException("Test case name is empty");
+        }
+        values[0] = values[0].trim();
+        if (!StringUtils.isNumeric(values[1]) && !"null".equals(values[1]) && !"".equals(values[1])) {
+            throw new IllegalArgumentException("Estimate is invalid: " + values[1]);
+        }
+        if (StringUtils.isBlank(values[2])) {
+            throw new IllegalArgumentException("Priority name is empty");
+        }
+        values[2] = values[2].trim();
+        if (StringUtils.isBlank(values[3])) {
+            throw new IllegalArgumentException("Section name is empty");
+        }
+        values[3] = values[3].trim();
     }
 }
