@@ -66,6 +66,7 @@ public class Users {
     @OneToMany(mappedBy = "user")
     private Set<Milestones> userMilestoness;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private Set<Report> userReports;
 

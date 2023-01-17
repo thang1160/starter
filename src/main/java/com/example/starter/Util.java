@@ -15,13 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import com.example.starter.core.Exclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.google.gson.ExclusionStrategy;
-import com.google.gson.FieldAttributes;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.json.jackson.DatabindCodec;
 import io.vertx.ext.web.RoutingContext;
@@ -33,25 +26,6 @@ public class Util {
     public static final String uploadsDirectory = "/opt/tms-upload/";
 
     private Util() {}
-
-    private static final ExclusionStrategy strategy = new ExclusionStrategy() {
-        @Override
-        public boolean shouldSkipClass(Class<?> clazz) {
-            return false;
-        }
-
-        @Override
-        public boolean shouldSkipField(FieldAttributes field) {
-            return field.getAnnotation(Exclude.class) != null;
-        }
-    };
-
-    private static final GsonBuilder b = new GsonBuilder().addSerializationExclusionStrategy(strategy);
-
-    public static final Gson GSON = b.create();
-
-    // returns the ObjectMapper used by Vert.x
-    public static final ObjectMapper mapper = DatabindCodec.mapper().registerModule(new JavaTimeModule());
 
     public static List<Map<String, Object>> convertResultSetToList(ResultSet rs) throws SQLException {
         ResultSetMetaData md = rs.getMetaData();
@@ -81,7 +55,7 @@ public class Util {
                 result = (String) object;
             } else {
                 // result = GSON.toJson(object);
-                result = mapper.writeValueAsString(object);
+                result = DatabindCodec.mapper().writeValueAsString(object);
             }
 
             rc.response().setStatusCode(statusCode)
@@ -102,9 +76,8 @@ public class Util {
         Map<String, Object> errorResponse = new HashMap<>();
         errorResponse.put("code", statusCode);
         errorResponse.put("message", message);
-        String json = GSON.toJson(errorResponse);
 
-        rc.response().setStatusCode(statusCode).end(new JsonObject(json).encode());
+        rc.response().setStatusCode(statusCode).end(new JsonObject(errorResponse).encode());
     }
 
     public static String hashPassword(String password, String salt) {

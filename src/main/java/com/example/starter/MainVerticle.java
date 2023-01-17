@@ -112,6 +112,10 @@ public class MainVerticle extends AbstractVerticle {
         // ATTACHMENT
         router.get(PREFIX + ATTACHMENT + "/:fileUploadId").handler(rc -> FileUploadHandler.findByFileUploadId(rc, client));
 
+        // REPORT
+        router.post(PREFIX + REPORT).handler(ReportHandler::create);
+        router.get(PREFIX + REPORT + "/:reportId").handler(ReportHandler::findByReportId);
+
         // Create the HTTP server
         vertx.createHttpServer()
                 .requestHandler(router)

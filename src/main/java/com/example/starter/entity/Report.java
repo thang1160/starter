@@ -1,6 +1,7 @@
 package com.example.starter.entity;
 
 import java.time.OffsetDateTime;
+import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Transient;
 
 
 @Entity
@@ -30,10 +32,13 @@ public class Report {
     private Integer createdBy;
 
     @Column(nullable = false)
-    private OffsetDateTime createdOn;
+    private OffsetDateTime createdOn = OffsetDateTime.now();
 
     @Column(nullable = false)
     private Integer projectId;
+
+    @Column(nullable = false, columnDefinition = "text")
+    private String jsonData = "{}";
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
@@ -107,6 +112,25 @@ public class Report {
 
     public void setProject(final Projects project) {
         this.project = project;
+    }
+
+    public String getJsonData() {
+        return jsonData;
+    }
+
+    public void setJsonData(final String jsonData) {
+        this.jsonData = jsonData;
+    }
+
+    @Transient
+    private Set<Integer> testRunIds;
+
+    public Set<Integer> getTestRunIds() {
+        return this.testRunIds;
+    }
+
+    public void setTestRunIds(Set<Integer> testRunIds) {
+        this.testRunIds = testRunIds;
     }
 
 }
