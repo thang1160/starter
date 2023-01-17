@@ -13,7 +13,8 @@ public enum Path {
     RESULT("/result"),
     ACTIVITY("/activity"),
     SIGNUP("/signup"),
-    ATTACHMENT("/attachment");
+    ATTACHMENT("/attachment"),
+    REPORT("/report");
 
     private final String stringPath;
 

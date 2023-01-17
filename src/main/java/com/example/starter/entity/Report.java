@@ -1,0 +1,112 @@
+package com.example.starter.entity;
+
+import java.time.OffsetDateTime;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+
+@Entity
+public class Report {
+
+    @Id
+    @Column(nullable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer reportId;
+
+    @Column(nullable = false, length = 250)
+    private String reportName;
+
+    @Column(length = 250)
+    private String reportDescription;
+
+    @Column(nullable = false)
+    private Integer createdBy;
+
+    @Column(nullable = false)
+    private OffsetDateTime createdOn;
+
+    @Column(nullable = false)
+    private Integer projectId;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "createdBy", nullable = false, insertable = false, updatable = false)
+    private Users user;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "projectId", nullable = false, insertable = false, updatable = false)
+    private Projects project;
+
+    public Integer getReportId() {
+        return reportId;
+    }
+
+    public void setReportId(final Integer reportId) {
+        this.reportId = reportId;
+    }
+
+    public String getReportName() {
+        return reportName;
+    }
+
+    public void setReportName(final String reportName) {
+        this.reportName = reportName;
+    }
+
+    public String getReportDescription() {
+        return reportDescription;
+    }
+
+    public void setReportDescription(final String reportDescription) {
+        this.reportDescription = reportDescription;
+    }
+
+    public Integer getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(final Integer createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public OffsetDateTime getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(final OffsetDateTime createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public Integer getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(final Integer projectId) {
+        this.projectId = projectId;
+    }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(final Users user) {
+        this.user = user;
+    }
+
+    public Projects getProject() {
+        return project;
+    }
+
+    public void setProject(final Projects project) {
+        this.project = project;
+    }
+
+}

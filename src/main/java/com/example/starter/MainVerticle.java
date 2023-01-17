@@ -10,6 +10,7 @@ import com.example.starter.handler.FileUploadHandler;
 import com.example.starter.handler.MilestoneHandler;
 import com.example.starter.handler.PriorityHandler;
 import com.example.starter.handler.ProjectHandler;
+import com.example.starter.handler.ReportHandler;
 import com.example.starter.handler.ResultHandler;
 import com.example.starter.handler.RoleHandler;
 import com.example.starter.handler.SectionHandler;
@@ -67,6 +68,7 @@ public class MainVerticle extends AbstractVerticle {
         router.get(PREFIX + PROJECT + "/:projectId" + ACTIVITY).handler(ActivityHandler::findAllByProjectId);
         router.get(PREFIX + PROJECT + "/:projectId" + MILESTONE).handler(MilestoneHandler::findAllByProjectId);
         router.post(PREFIX + PROJECT + "/:projectId" + TEST_CASE).handler(TestCaseHandler::importTestCases);
+        router.post(PREFIX + PROJECT + "/:projectId" + REPORT).handler(ReportHandler::findAllByProjectId);
 
         // TEST CASE
         router.post(PREFIX + TEST_CASE).handler(TestCaseHandler::addTestCase);

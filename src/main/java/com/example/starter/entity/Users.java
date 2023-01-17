@@ -66,6 +66,9 @@ public class Users {
     @OneToMany(mappedBy = "user")
     private Set<Milestones> userMilestoness;
 
+    @OneToMany(mappedBy = "user")
+    private Set<Report> userReports;
+
     public Integer getUserId() {
         return userId;
     }
@@ -171,6 +174,14 @@ public class Users {
 
     public void setUserMilestoness(final Set<Milestones> userMilestoness) {
         this.userMilestoness = userMilestoness;
+    }
+
+    public Set<Report> getUserReports() {
+        return userReports;
+    }
+
+    public void setUserReports(final Set<Report> userReports) {
+        this.userReports = userReports;
     }
 
 }
