@@ -1,6 +1,5 @@
 package com.example.starter.handler;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -46,13 +45,12 @@ public class ReportHandler {
                 List<TestRun> testRuns = TestRunService.findAllByProjectId(report.getProjectId()).stream()
                         .filter(x -> testRunIds.contains(x.getRunId()))
                         .collect(Collectors.toList());
-                jsonData.put("testRuns", testRuns);
 
-                List<Result> results = new ArrayList<>();
                 for (TestRun testRun : testRuns) {
-                    results.addAll(ResultService.findAllByTestRunId(testRun.getRunId()));
+                    List<Result> results = ResultService.findAllByTestRunId(testRun.getRunId());
+                    testRun.setResults(results);
                 }
-                jsonData.put("results", results);
+                jsonData.put("testRuns", testRuns);
 
                 report.setJsonData(jsonData.toString());
                 report.setCreatedBy(userId);
@@ -70,7 +68,7 @@ public class ReportHandler {
             String stringId = rc.pathParam("reportId");
             try {
                 Long reportId = Long.parseLong(stringId);
-                Report report = BaseService.findById(Report.class, reportId);
+                Report report = ReportService.findByReportId(reportId);
                 Util.sendResponse(rc, 200, report);
             } catch (Exception e) {
                 _LOGGER.log(Level.SEVERE, "find report handler failed", e);

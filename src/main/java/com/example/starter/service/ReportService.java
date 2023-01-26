@@ -25,4 +25,18 @@ public class ReportService extends BaseService {
         return result;
     }
 
+    public static Report findByReportId(Long reportId) {
+        Report result = new Report();
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Report> query = em.createQuery("select new com.example.starter.entity.Report(a,u,p) from Report a join a.user u join a.project p where a.reportId = ?1", Report.class);
+            query.setParameter(1, reportId);
+            query.setMaxResults(1);
+            result = query.getResultList().get(0);
+        } finally {
+            em.close();
+        }
+        return result;
+    }
+
 }

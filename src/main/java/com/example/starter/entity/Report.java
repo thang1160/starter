@@ -17,6 +17,20 @@ import jakarta.persistence.Transient;
 @Entity
 public class Report {
 
+    public Report(Report report, Users user, Projects projects) {
+        this.projectName = projects.getProjectName();
+        this.fullName = user.getFullname();
+        this.reportId = report.reportId;
+        this.reportName = report.reportName;
+        this.reportDescription = report.reportDescription;
+        this.createdBy = report.createdBy;
+        this.createdOn = report.createdOn;
+        this.projectId = report.projectId;
+        this.jsonData = report.jsonData;
+    }
+
+    public Report() {}
+
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -125,12 +139,34 @@ public class Report {
     @Transient
     private Set<Integer> testRunIds;
 
+    @Transient
+    private String projectName;
+
+    @Transient
+    private String fullName;
+
     public Set<Integer> getTestRunIds() {
         return this.testRunIds;
     }
 
     public void setTestRunIds(Set<Integer> testRunIds) {
         this.testRunIds = testRunIds;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
 }

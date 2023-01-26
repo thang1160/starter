@@ -1,6 +1,7 @@
 package com.example.starter.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -269,6 +270,17 @@ public class TestRun {
 
     @Transient
     private Long untestedCount = 0L;
+
+    @Transient
+    private List<Result> results;
+
+    public List<Result> getResults() {
+        return results;
+    }
+
+    public void setResults(List<Result> results) {
+        this.results = results;
+    }
 
     public String getFullname() {
         return this.fullname;
