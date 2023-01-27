@@ -70,6 +70,10 @@ public class Users {
     @OneToMany(mappedBy = "user")
     private Set<Report> userReports;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private Set<ProjectUser> userProjectUsers;
+
     public Integer getUserId() {
         return userId;
     }
@@ -183,6 +187,14 @@ public class Users {
 
     public void setUserReports(final Set<Report> userReports) {
         this.userReports = userReports;
+    }
+
+    public Set<ProjectUser> getUserProjectUsers() {
+        return userProjectUsers;
+    }
+
+    public void setUserProjectUsers(final Set<ProjectUser> userProjectUsers) {
+        this.userProjectUsers = userProjectUsers;
     }
 
 }

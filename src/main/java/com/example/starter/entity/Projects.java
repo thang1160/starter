@@ -63,6 +63,10 @@ public class Projects {
     @OneToMany(mappedBy = "project")
     private Set<Report> projectReports;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "project")
+    private Set<ProjectUser> projectProjectUsers;
+
     @Transient
     private Long activeMilestone;
 
@@ -163,6 +167,14 @@ public class Projects {
 
     public void setProjectReports(final Set<Report> projectReports) {
         this.projectReports = projectReports;
+    }
+
+    public Set<ProjectUser> getProjectProjectUsers() {
+        return projectProjectUsers;
+    }
+
+    public void setProjectProjectUsers(final Set<ProjectUser> projectProjectUsers) {
+        this.projectProjectUsers = projectProjectUsers;
     }
 
     @Override

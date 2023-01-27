@@ -62,6 +62,8 @@ public class MainVerticle extends AbstractVerticle {
         // PROJECT
         router.get(PREFIX + PROJECT).handler(ProjectHandler::findAll);
         router.post(PREFIX + PROJECT).handler(ProjectHandler::create);
+        // /tms/api/v1/project/:projectId...
+        router.routeWithRegex("\\/tms\\/api\\/v1\\/project\\/(?<projectId>\\d+).*").handler(ProjectHandler::accessible);
         router.get(PREFIX + PROJECT + "/:projectId").handler(ProjectHandler::findByProjectId);
         router.get(PREFIX + PROJECT + "/:projectId" + TEST_RUN).handler(TestRunHandler::findAllByProjectId);
         router.get(PREFIX + PROJECT + "/:projectId" + TEST_CASE).handler(TestCaseHandler::findAllByProjectId);
