@@ -1,0 +1,368 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "tms",
+    "dateExported": "2023-01-28T07:10:51.862Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "7e983f09-da0e-4162-94d8-d857a8baabdd",
+            "colId": "46059fae-ae8f-4b8f-a2ab-f3c0c6dfb861",
+            "containerId": "",
+            "name": "get projects",
+            "url": "localhost:8888/tms/api/v1/project",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-01-26T09:12:43.070Z",
+            "modified": "2023-01-26T09:12:43.070Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "6eab05bc-c216-4cd6-8314-cc6570b02466",
+            "colId": "46059fae-ae8f-4b8f-a2ab-f3c0c6dfb861",
+            "containerId": "",
+            "name": "add project",
+            "url": "localhost:8888/tms/api/v1/project",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-01-26T09:12:43.071Z",
+            "modified": "2023-01-26T09:12:43.071Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"projectName\": \"test thiếu constructor\",\n  \"announcement\": \"thông báo\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "4be1a713-5754-4694-b975-0685e6228abb",
+            "colId": "46059fae-ae8f-4b8f-a2ab-f3c0c6dfb861",
+            "containerId": "",
+            "name": "get project by id",
+            "url": "localhost:8888/tms/api/v1/project/1",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-01-26T09:12:43.072Z",
+            "modified": "2023-01-26T09:12:43.072Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "7c5a859f-fba4-415a-bc5d-6f0b9dbd2ec7",
+            "colId": "46059fae-ae8f-4b8f-a2ab-f3c0c6dfb861",
+            "containerId": "",
+            "name": "get test case by project id",
+            "url": "localhost:8888/tms/api/v1/test-case/1",
+            "method": "GET",
+            "sortNum": 35000,
+            "created": "2023-01-26T09:12:43.073Z",
+            "modified": "2023-01-26T09:12:43.073Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "217f65eb-bfd6-4fa2-aabd-145b7fe8a711",
+            "colId": "46059fae-ae8f-4b8f-a2ab-f3c0c6dfb861",
+            "containerId": "",
+            "name": "add test case",
+            "url": "localhost:8888/tms/api/v1/test-case",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-01-26T09:12:43.074Z",
+            "modified": "2023-01-26T09:12:43.074Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"caseName\": \"test testcase hibernate\",\n  \"sectionId\": 6,\n  \"priorityId\": 1,\n  \"estimate\": 10,\n  \"preconditions\": \"my preconditions 2\",\n  \"steps\": \"step2: ...vvv\",\n  \"expectedResult\": \"my result 2\",\n  \"userId\": 2,\n  \"projectId\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "7ea65fb4-5f7d-44ed-a36e-2f43bb93c7b3",
+            "colId": "46059fae-ae8f-4b8f-a2ab-f3c0c6dfb861",
+            "containerId": "",
+            "name": "get milestone by project id",
+            "url": "localhost:8888/tms/api/v1/milestone/1",
+            "method": "GET",
+            "sortNum": 45000,
+            "created": "2023-01-26T09:12:43.075Z",
+            "modified": "2023-01-26T09:12:43.075Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "ff3b4cf9-e0db-448d-a7a4-537be72381d2",
+            "colId": "46059fae-ae8f-4b8f-a2ab-f3c0c6dfb861",
+            "containerId": "",
+            "name": "add milestone",
+            "url": "localhost:8888/tms/api/v1/milestone",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2023-01-26T09:12:43.076Z",
+            "modified": "2023-01-26T09:12:43.076Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"milestoneName\": \"test null completed\",\n  \"description\": \"example description\",\n  \"startDate\": \"2022-11-20\",\n  \"endDate\": \"2023-11-25\",\n  \"projectId\": 1,\n  \"completed\": false\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "16cc4668-f5b4-4914-8806-dbd436f6c024",
+            "colId": "46059fae-ae8f-4b8f-a2ab-f3c0c6dfb861",
+            "containerId": "",
+            "name": "add test run",
+            "url": "localhost:8888/tms/api/v1/test-run",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2023-01-26T09:12:43.078Z",
+            "modified": "2023-01-26T09:12:43.078Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"runName\": \"test create test run with hibernate\",\n  \"milestoneId\": 3,\n  \"assignedToId\": null,\n  \"description\": \"example description\",\n  \"userId\": 2,\n  \"projectId\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "3fc89f8e-6c7a-4bbc-9b29-8ce81184efd5",
+            "colId": "46059fae-ae8f-4b8f-a2ab-f3c0c6dfb861",
+            "containerId": "",
+            "name": "get section by project id",
+            "url": "localhost:8888/tms/api/v1/section/1",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2023-01-26T09:12:43.079Z",
+            "modified": "2023-01-26T09:12:43.079Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "e1f7cbd8-7b90-489a-bd18-c75d56ca8800",
+            "colId": "46059fae-ae8f-4b8f-a2ab-f3c0c6dfb861",
+            "containerId": "",
+            "name": "add section",
+            "url": "localhost:8888/tms/api/v1/section",
+            "method": "POST",
+            "sortNum": 75000,
+            "created": "2023-01-26T09:12:43.080Z",
+            "modified": "2023-01-26T09:12:43.080Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"sectionName\": \"test API\",\n  \"projectId\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "4032efe6-d009-404b-b14d-38ff83ae4940",
+            "colId": "46059fae-ae8f-4b8f-a2ab-f3c0c6dfb861",
+            "containerId": "",
+            "name": "get priorities",
+            "url": "localhost:8888/tms/api/v1/priority",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2023-01-26T09:12:43.081Z",
+            "modified": "2023-01-26T09:12:43.081Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "5b2d43db-194c-4ade-a298-803cc7d92ce4",
+            "colId": "46059fae-ae8f-4b8f-a2ab-f3c0c6dfb861",
+            "containerId": "",
+            "name": "get users",
+            "url": "localhost:8888/tms/api/v1/user",
+            "method": "GET",
+            "sortNum": 100000,
+            "created": "2023-01-26T09:12:43.082Z",
+            "modified": "2023-01-26T09:12:43.082Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "03477277-0ebb-455f-b428-e3a05f5a5ab0",
+            "colId": "46059fae-ae8f-4b8f-a2ab-f3c0c6dfb861",
+            "containerId": "",
+            "name": "get roles",
+            "url": "localhost:8888/tms/api/v1/role",
+            "method": "GET",
+            "sortNum": 110000,
+            "created": "2023-01-26T09:12:43.083Z",
+            "modified": "2023-01-26T09:12:43.083Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "7ffbcde4-3728-4b28-9124-9f3cd5438160",
+            "colId": "46059fae-ae8f-4b8f-a2ab-f3c0c6dfb861",
+            "containerId": "",
+            "name": "get test runs by project id",
+            "url": "localhost:8888/tms/api/v1/test-run/1",
+            "method": "GET",
+            "sortNum": 120000,
+            "created": "2023-01-26T09:12:43.084Z",
+            "modified": "2023-01-26T09:12:43.084Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "b20075a3-7406-47d8-a521-5d8ba8ae7a8c",
+            "colId": "46059fae-ae8f-4b8f-a2ab-f3c0c6dfb861",
+            "containerId": "",
+            "name": "update result",
+            "url": "localhost:8888/tms/api/v1/result",
+            "method": "PUT",
+            "sortNum": 130000,
+            "created": "2023-01-26T09:12:43.085Z",
+            "modified": "2023-01-26T09:12:43.085Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"test\": 2,\n  \"status\": \"Passed\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "416b8121-6e7f-45ad-a74a-a80c6c6401a0",
+            "colId": "46059fae-ae8f-4b8f-a2ab-f3c0c6dfb861",
+            "containerId": "",
+            "name": "create results",
+            "url": "localhost:8888/tms/api/v1/result",
+            "method": "POST",
+            "sortNum": 140000,
+            "created": "2023-01-26T09:12:43.086Z",
+            "modified": "2023-01-26T09:12:43.086Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "[\n  {\n    \"testRunId\": 5,\n    \"testCaseId\": 12\n  },\n  {\n    \"testRunId\": 5,\n    \"testCaseId\": 13\n  }\n]",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "dce80e80-9446-4b9d-a2a5-4a1efcf36f4b",
+            "colId": "46059fae-ae8f-4b8f-a2ab-f3c0c6dfb861",
+            "containerId": "",
+            "name": "get report by project id",
+            "url": "localhost:8888/tms/api/v1/project/1/report",
+            "method": "GET",
+            "sortNum": 150000,
+            "created": "2023-01-26T09:13:05.310Z",
+            "modified": "2023-01-26T09:14:09.952Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOjMsImVtYWlsIjoidGhhbmdkdkBvbmVwYXkudm4iLCJpYXQiOjE2NzQ3MjQyNzcsImV4cCI6MTY3NDczMTQ3N30.NhT79Xg9xltwEYMO9dXgkVaPuX3i3Mz6dEzf3PV6pAQ3qoLOomfvmwoDEdJgSeRe1fvefyCCEa7FmW5MVMVTqBIfHovC3oRWvwu-VuJTvgr2bOnPASjf50FawIJceEv_sVL4wHZTkCyOHNYhwY8BiMGChbYSnQGXrbWyVQALsQR60nrYmxVRBpdgbLGKjqrkeLrQncHrPUYvx_vzfyfLfIp-PWVz3mhuqqLcmaCe3OiiVIZ9PYswlZkRIEIgzhNUBT6Rqh64FxBM5teAoWcWJnSRwZljYb-0wvjSySaNSaZLbhXk6PNqyT01DnURsI0UTuUPZauAQKrxFMy80UOjrw"
+            },
+            "tests": []
+        },
+        {
+            "_id": "f3d4a884-26dd-473c-a504-f8cbc9f18014",
+            "colId": "46059fae-ae8f-4b8f-a2ab-f3c0c6dfb861",
+            "containerId": "",
+            "name": "create report",
+            "url": "localhost:8888/tms/api/v1/report",
+            "method": "POST",
+            "sortNum": 160000,
+            "created": "2023-01-26T09:28:56.205Z",
+            "modified": "2023-01-26T09:32:51.163Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"projectId\": 1,\n  \"reportName\": \"test add\",\n  \"testRunIds\": [\n    1051,1062\n    ]\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOjMsImVtYWlsIjoidGhhbmdkdkBvbmVwYXkudm4iLCJpYXQiOjE2NzQ3MjQyNzcsImV4cCI6MTY3NDczMTQ3N30.NhT79Xg9xltwEYMO9dXgkVaPuX3i3Mz6dEzf3PV6pAQ3qoLOomfvmwoDEdJgSeRe1fvefyCCEa7FmW5MVMVTqBIfHovC3oRWvwu-VuJTvgr2bOnPASjf50FawIJceEv_sVL4wHZTkCyOHNYhwY8BiMGChbYSnQGXrbWyVQALsQR60nrYmxVRBpdgbLGKjqrkeLrQncHrPUYvx_vzfyfLfIp-PWVz3mhuqqLcmaCe3OiiVIZ9PYswlZkRIEIgzhNUBT6Rqh64FxBM5teAoWcWJnSRwZljYb-0wvjSySaNSaZLbhXk6PNqyT01DnURsI0UTuUPZauAQKrxFMy80UOjrw"
+            },
+            "tests": []
+        },
+        {
+            "_id": "11661080-4d6b-4d69-8ac6-a923693ff62f",
+            "colId": "46059fae-ae8f-4b8f-a2ab-f3c0c6dfb861",
+            "containerId": "",
+            "name": "get project user by project id",
+            "url": "localhost:8888/tms/api/v1/project/1/project-user",
+            "method": "GET",
+            "sortNum": 170000,
+            "created": "2023-01-28T07:05:17.495Z",
+            "modified": "2023-01-28T07:05:32.267Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOjMsImVtYWlsIjoidGhhbmdkdkBvbmVwYXkudm4iLCJpYXQiOjE2NzQ4ODk0MjUsImV4cCI6MTY3NDg5NjYyNX0.dYce5x1HeXhyfA0o1DQttIgCuwGhqQb27tMEwiS_oUQWPmjMDOn35oMTHD_Y0XNkdrg1hlJS4oQa-XNGs-IkE45slgaogvXmaz7TQGidTAeAomG9eknZQh4nvsE7FTm7si9w5u-zxtlFW-4MBAsy0toi3wUC-_F9rCkMwJr-lDXvxmMNcq5T1MzE3SFFz6yqEHjLx9D3pfj64JmE3CVsH0cyr4ocPR2elPiaOZa56wPZuU9l_BPue4IHanNW_HQEpua_-TFIfVA7LZ1zNl7WpieTk-NQgJCHsfVmK5sgmwARImMrfUOGw9yAoFDxJbton9vHOjFdxweEyCXGZr7qHg"
+            },
+            "tests": []
+        },
+        {
+            "_id": "5762fb69-d291-4efa-99ae-245e0683fc93",
+            "colId": "46059fae-ae8f-4b8f-a2ab-f3c0c6dfb861",
+            "containerId": "",
+            "name": "create project user",
+            "url": "localhost:8888/tms/api/v1/project-user",
+            "method": "POST",
+            "sortNum": 180000,
+            "created": "2023-01-28T07:08:49.527Z",
+            "modified": "2023-01-28T07:09:35.133Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "  {\n    \"projectId\": 1,\n    \"userId\": 4\n  }",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOjMsImVtYWlsIjoidGhhbmdkdkBvbmVwYXkudm4iLCJpYXQiOjE2NzQ4ODk0MjUsImV4cCI6MTY3NDg5NjYyNX0.dYce5x1HeXhyfA0o1DQttIgCuwGhqQb27tMEwiS_oUQWPmjMDOn35oMTHD_Y0XNkdrg1hlJS4oQa-XNGs-IkE45slgaogvXmaz7TQGidTAeAomG9eknZQh4nvsE7FTm7si9w5u-zxtlFW-4MBAsy0toi3wUC-_F9rCkMwJr-lDXvxmMNcq5T1MzE3SFFz6yqEHjLx9D3pfj64JmE3CVsH0cyr4ocPR2elPiaOZa56wPZuU9l_BPue4IHanNW_HQEpua_-TFIfVA7LZ1zNl7WpieTk-NQgJCHsfVmK5sgmwARImMrfUOGw9yAoFDxJbton9vHOjFdxweEyCXGZr7qHg"
+            },
+            "tests": []
+        },
+        {
+            "_id": "d761b323-11b4-4f0d-891f-4614ddedbe2a",
+            "colId": "46059fae-ae8f-4b8f-a2ab-f3c0c6dfb861",
+            "containerId": "",
+            "name": "delete project user",
+            "url": "localhost:8888/tms/api/v1/project-user/2",
+            "method": "DELETE",
+            "sortNum": 190000,
+            "created": "2023-01-28T07:10:15.273Z",
+            "modified": "2023-01-28T07:10:39.314Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOjMsImVtYWlsIjoidGhhbmdkdkBvbmVwYXkudm4iLCJpYXQiOjE2NzQ4ODk0MjUsImV4cCI6MTY3NDg5NjYyNX0.dYce5x1HeXhyfA0o1DQttIgCuwGhqQb27tMEwiS_oUQWPmjMDOn35oMTHD_Y0XNkdrg1hlJS4oQa-XNGs-IkE45slgaogvXmaz7TQGidTAeAomG9eknZQh4nvsE7FTm7si9w5u-zxtlFW-4MBAsy0toi3wUC-_F9rCkMwJr-lDXvxmMNcq5T1MzE3SFFz6yqEHjLx9D3pfj64JmE3CVsH0cyr4ocPR2elPiaOZa56wPZuU9l_BPue4IHanNW_HQEpua_-TFIfVA7LZ1zNl7WpieTk-NQgJCHsfVmK5sgmwARImMrfUOGw9yAoFDxJbton9vHOjFdxweEyCXGZr7qHg"
+            },
+            "tests": []
+        }
+    ]
+}

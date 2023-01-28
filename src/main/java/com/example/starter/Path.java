@@ -14,7 +14,8 @@ public enum Path {
     ACTIVITY("/activity"),
     SIGNUP("/signup"),
     ATTACHMENT("/attachment"),
-    REPORT("/report");
+    REPORT("/report"),
+    PROJECT_USER("/project-user");
 
     private final String stringPath;
 

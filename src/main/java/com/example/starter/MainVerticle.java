@@ -10,6 +10,7 @@ import com.example.starter.handler.FileUploadHandler;
 import com.example.starter.handler.MilestoneHandler;
 import com.example.starter.handler.PriorityHandler;
 import com.example.starter.handler.ProjectHandler;
+import com.example.starter.handler.ProjectUserHandler;
 import com.example.starter.handler.ReportHandler;
 import com.example.starter.handler.ResultHandler;
 import com.example.starter.handler.RoleHandler;
@@ -71,6 +72,7 @@ public class MainVerticle extends AbstractVerticle {
         router.get(PREFIX + PROJECT + "/:projectId" + MILESTONE).handler(MilestoneHandler::findAllByProjectId);
         router.post(PREFIX + PROJECT + "/:projectId" + TEST_CASE).handler(TestCaseHandler::importTestCases);
         router.get(PREFIX + PROJECT + "/:projectId" + REPORT).handler(ReportHandler::findAllByProjectId);
+        router.get(PREFIX + PROJECT + "/:projectId" + PROJECT_USER).handler(ProjectUserHandler::findAllByProjectId);
 
         // TEST CASE
         router.post(PREFIX + TEST_CASE).handler(TestCaseHandler::addTestCase);
@@ -117,6 +119,10 @@ public class MainVerticle extends AbstractVerticle {
         // REPORT
         router.post(PREFIX + REPORT).handler(ReportHandler::create);
         router.get(PREFIX + REPORT + "/:reportId").handler(ReportHandler::findByReportId);
+
+        // PROJECT USER
+        router.post(PREFIX + PROJECT_USER).handler(ProjectUserHandler::create);
+        router.delete(PREFIX + PROJECT_USER + "/:projectUserId").handler(ProjectUserHandler::delete);
 
         // Create the HTTP server
         vertx.createHttpServer()

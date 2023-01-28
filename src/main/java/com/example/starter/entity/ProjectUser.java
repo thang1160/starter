@@ -9,10 +9,21 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Transient;
 
 
 @Entity
 public class ProjectUser {
+
+    public ProjectUser(ProjectUser projectUser, Users user) {
+        this.projectUserId = projectUser.projectUserId;
+        this.projectId = projectUser.projectId;
+        this.userId = projectUser.userId;
+        this.fullname = user.getFullname();
+        this.email = user.getEmail();
+    }
+
+    public ProjectUser() {}
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -73,6 +84,28 @@ public class ProjectUser {
 
     public void setProject(final Projects project) {
         this.project = project;
+    }
+
+    @Transient
+    private String fullname;
+
+    @Transient
+    private String email;
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFullname() {
+        return this.fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
 }
