@@ -163,7 +163,7 @@ public class TestCaseHandler {
                     Util.sendResponse(rc, 500, "File not contain test cases");
                     return;
                 }
-                // TestCaseService.createBatch(testCases);
+                TestCaseService.createBatch(testCases);
                 Util.sendResponse(rc, 200, "successfully import test cases");
             } catch (Exception e) {
                 _LOGGER.log(Level.SEVERE, "import test case failed {0}:{1}", new Object[] {stringId, e});
