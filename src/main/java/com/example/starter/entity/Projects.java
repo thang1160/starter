@@ -1,5 +1,6 @@
 package com.example.starter.entity;
 
+import java.time.LocalDate;
 import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
@@ -41,6 +42,12 @@ public class Projects {
 
     @Column(name = "completed", nullable = false)
     private Boolean completed = false;
+
+    @Column()
+    private LocalDate startDate;
+
+    @Column()
+    private LocalDate endDate;
 
     @JsonIgnore
     @OneToMany(mappedBy = "project")
@@ -111,6 +118,22 @@ public class Projects {
 
     public void setCompleted(Boolean completed) {
         this.completed = completed;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(final LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(final LocalDate endDate) {
+        this.endDate = endDate;
     }
 
     public Set<Milestones> getProjectMilestoness() {
