@@ -7,9 +7,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.example.starter.Util;
 import com.example.starter.entity.Activity;
+import com.example.starter.entity.Result;
 import com.example.starter.entity.TestCase;
 import com.example.starter.entity.TestRun;
 import com.example.starter.service.BaseService;
+import com.example.starter.service.ResultService;
 import com.example.starter.service.TestCaseService;
 import com.example.starter.service.TestRunService;
 import io.vertx.ext.web.RoutingContext;
@@ -93,8 +95,10 @@ public class TestRunHandler {
             String stringId = rc.pathParam("testRunId");
             try {
                 Long testRunId = Long.parseLong(stringId);
-                TestRun project = BaseService.findById(TestRun.class, testRunId);
-                Util.sendResponse(rc, 200, project);
+                TestRun testRun = BaseService.findById(TestRun.class, testRunId);
+                List<Result> results = ResultService.findAllByTestRunId(testRunId);
+                testRun.setResults(results);
+                Util.sendResponse(rc, 200, testRun);
             } catch (Exception e) {
                 _LOGGER.log(Level.SEVERE, "find test run handler failed", e);
                 Util.sendResponse(rc, 500, e.getMessage());

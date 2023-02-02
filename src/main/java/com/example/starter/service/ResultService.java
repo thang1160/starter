@@ -34,7 +34,7 @@ public class ResultService extends BaseService {
         }
     }
 
-    public static List<Result> findAllByTestRunId(int testRunId) {
+    public static List<Result> findAllByTestRunId(long testRunId) {
         List<Result> result = new ArrayList<>();
         EntityManager em = getEntityManager();
         try {
