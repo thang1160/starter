@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import com.example.starter.Util;
+import com.example.starter.entity.Activity;
 import com.example.starter.entity.Report;
 import com.example.starter.entity.Result;
 import com.example.starter.entity.TestRun;
@@ -55,6 +56,15 @@ public class ReportHandler {
                 report.setJsonData(jsonData.toString());
                 report.setCreatedBy(userId);
                 BaseService.create(report);
+
+                Activity activity = new Activity();
+                activity.setAction("Created by");
+                activity.setName(report.getReportName());
+                activity.setType("Report");
+                activity.setUserId(userId);
+                activity.setProjectId(report.getProjectId());
+                activity.setTargetId(report.getReportId());
+                BaseService.create(activity);
                 Util.sendResponse(rc, 200, "successfully created report");
             } catch (Exception e) {
                 _LOGGER.log(Level.SEVERE, "add report handler failed", e);
