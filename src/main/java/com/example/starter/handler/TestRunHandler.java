@@ -1,10 +1,12 @@
 package com.example.starter.handler;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import com.example.starter.Util;
 import com.example.starter.entity.Activity;
 import com.example.starter.entity.Result;
@@ -27,13 +29,14 @@ public class TestRunHandler {
                 Integer userId = Integer.parseInt(rc.user().principal().getString("sub"));
                 TestRun testRun = rc.body().asPojo(TestRun.class);
                 testRun.setUserId(userId);
-                List<TestCase> testCases = new ArrayList<>();
+                Set<Result> results = null;
                 if (Optional.ofNullable(testRun.getIncludeAll()).orElse(false)) {
-                    testCases = TestCaseService.findAllByProjectId(testRun.getProjectId());
-                    TestRunService.create(testRun, testCases);
+                    List<TestCase> testCases = TestCaseService.findAllByProjectId(testRun.getProjectId());
+                    results = testCases.stream().map(x -> new Result(x.getCaseId())).collect(Collectors.toSet());
                 } else {
-                    TestRunService.create(testRun, testRun.getTestRunResults());
+                    results = testRun.getTestRunResults();
                 }
+                TestRunService.create(testRun, results);
 
                 Activity activity = new Activity();
                 activity.setAction("Created by");
@@ -70,7 +73,17 @@ public class TestRunHandler {
             try {
                 Integer userId = Integer.parseInt(rc.user().principal().getString("sub"));
                 TestRun testRun = rc.body().asPojo(TestRun.class);
-                TestRunService.update(testRun);
+                Set<Result> results = null;
+                if (Optional.ofNullable(testRun.getIncludeAll()).orElse(false)) {
+                    List<TestCase> testCases = TestCaseService.findAllByProjectId(testRun.getProjectId());
+                    results = testCases.stream().map(x -> new Result(x.getCaseId())).collect(Collectors.toSet());
+                } else {
+                    results = new HashSet<>(testRun.getResults());
+                }
+                Set<Integer> addedCaseIds = ResultService.findAllByTestRunId(testRun.getRunId())
+                        .stream().map(x -> x.getCaseId()).collect(Collectors.toSet());
+                results = results.stream().filter(x -> !addedCaseIds.contains(x.getCaseId())).collect(Collectors.toSet());
+                TestRunService.update(testRun, results);
                 if (testRun.getIsCompleted()) {
                     Activity activity = new Activity();
                     activity.setAction("Closed by");

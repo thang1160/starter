@@ -22,6 +22,10 @@ public class Result {
 
     public Result() {}
 
+    public Result(Integer caseId) {
+        this.caseId = caseId;
+    }
+
     public Result(Result result, String caseName, String sectionName) {
         this.resultId = result.resultId;
         this.runId = result.runId;

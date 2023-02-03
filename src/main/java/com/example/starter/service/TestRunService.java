@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import com.example.starter.entity.Result;
-import com.example.starter.entity.TestCase;
 import com.example.starter.entity.TestRun;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -33,27 +32,6 @@ public class TestRunService extends BaseService {
         return result;
     }
 
-    public static void create(TestRun testRun, List<TestCase> testCases) {
-        EntityManager em = getEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.persist(testRun);
-            for (int i = 0; i < testCases.size(); i++) {
-                Result result = new Result();
-                result.setCaseId(testCases.get(i).getCaseId());
-                result.setRunId(testRun.getRunId());
-                if (i > 0 && i % BATCH_SIZE == 0) {
-                    em.flush();
-                    em.clear();
-                }
-                em.persist(result);
-            }
-            em.getTransaction().commit();
-        } finally {
-            em.close();
-        }
-    }
-
     public static void create(TestRun testRun, Set<Result> results) {
         EntityManager em = getEntityManager();
         try {
@@ -75,7 +53,7 @@ public class TestRunService extends BaseService {
         }
     }
 
-    public static void update(TestRun input) {
+    public static void update(TestRun input, Set<Result> results) {
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
@@ -92,6 +70,17 @@ public class TestRunService extends BaseService {
                 testRun.setAssignedToId(input.getAssignedToId());
                 testRun.setDescription(input.getDescription());
                 testRun.setIncludeAll(input.getIncludeAll());
+
+                int i = 0;
+                for (Result result : results) {
+                    result.setRunId(testRun.getRunId());
+                    if (i > 0 && i % BATCH_SIZE == 0) {
+                        em.flush();
+                        em.clear();
+                    }
+                    em.persist(result);
+                    i++;
+                }
             }
             em.merge(testRun);
             em.getTransaction().commit();
