@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.example.starter.Util;
 import com.example.starter.entity.Functionality;
+import com.example.starter.entity.ProjectUser;
 import com.example.starter.entity.Projects;
 import com.example.starter.model.PagingParams;
 import com.example.starter.model.PagingResponse;
@@ -49,8 +50,13 @@ public class ProjectHandler {
     public static void create(RoutingContext rc) {
         rc.vertx().executeBlocking(future -> {
             try {
+                Integer userId = Integer.parseInt(rc.user().principal().getString("sub"));
                 Projects project = rc.body().asPojo(Projects.class);
                 BaseService.create(project);
+                ProjectUser projectUser = new ProjectUser();
+                projectUser.setProjectId(project.getProjectId());
+                projectUser.setUserId(userId);
+                BaseService.create(projectUser);
                 Util.sendResponse(rc, 200, project);
             } catch (Exception e) {
                 _LOGGER.log(Level.SEVERE, "add project handler failed", e);

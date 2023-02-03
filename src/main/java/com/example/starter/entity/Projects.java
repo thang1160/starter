@@ -19,9 +19,11 @@ public class Projects {
 
     public Projects() {}
 
-    public Projects(Integer projectId, String projectName, Long activeMilestone, Long activeTestRun) {
+    public Projects(Integer projectId, String projectName, LocalDate startDate, LocalDate endDate, Long activeMilestone, Long activeTestRun) {
         this.projectId = projectId;
         this.projectName = projectName;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.activeMilestone = activeMilestone;
         this.activeTestRun = activeTestRun;
     }
