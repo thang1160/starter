@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import com.example.starter.Util;
+import com.example.starter.entity.Activity;
 import com.example.starter.entity.Priorities;
 import com.example.starter.entity.Sections;
 import com.example.starter.entity.TestCase;
@@ -34,6 +35,15 @@ public class TestCaseHandler {
                 testCase.setUserId(userId);
                 testCase.setUpdatedBy(testCase.getUserId());
                 BaseService.create(testCase);
+
+                Activity activity = new Activity();
+                activity.setAction("Created by");
+                activity.setName(testCase.getCaseName());
+                activity.setType("Test Case");
+                activity.setUserId(userId);
+                activity.setProjectId(testCase.getProjectId());
+                activity.setTargetId(testCase.getCaseId());
+                BaseService.create(activity);
                 Util.sendResponse(rc, 200, "successfully created TestCase");
             } catch (Exception e) {
                 _LOGGER.log(Level.SEVERE, "add testcase handler failed", e);
@@ -87,8 +97,19 @@ public class TestCaseHandler {
         rc.vertx().executeBlocking(future -> {
             String stringId = rc.pathParam("testCaseId");
             try {
+                Integer userId = Integer.parseInt(rc.user().principal().getString("sub"));
                 Long testCaseId = Long.parseLong(stringId);
+                TestCase testCase = BaseService.findById(TestCase.class, testCaseId);
                 int deletedCount = TestCaseService.delete(testCaseId);
+
+                Activity activity = new Activity();
+                activity.setAction("Deleted by");
+                activity.setName(testCase.getCaseName());
+                activity.setType("Test Case");
+                activity.setUserId(userId);
+                activity.setProjectId(testCase.getProjectId());
+                activity.setTargetId(testCase.getCaseId());
+                BaseService.create(activity);
                 Util.sendResponse(rc, 200, Map.of("deletedCount", deletedCount));
             } catch (Exception e) {
                 _LOGGER.log(Level.SEVERE, "find test case handler failed", e);
